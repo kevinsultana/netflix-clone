@@ -8,8 +8,8 @@ export default function Hero() {
   return (
     <div>
       <div>
-        <img src={hero} alt="Hero" className="w-full h-screen absolute z-0" />
-        <div class="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-20"></div>
+        <img src={hero} alt="Hero" className="w-full h-fit absolute z-0" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60"></div>
       </div>
       <div className="absolute z-10 px-14 mt-56 max-w-2xl">
         <div className="flex gap-4 items-center">

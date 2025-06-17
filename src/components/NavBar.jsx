@@ -32,7 +32,7 @@ export default function NavBar() {
   ];
 
   return (
-    <div className="flex justify-between px-14 py-4 items-center fixed top-0 left-0 right-0 z-10 ">
+    <div className="flex justify-between px-14 py-4 items-center fixed top-0 left-0 right-0 z-20 bg-black">
       <div className="flex gap-12 items-center">
         <img src={logo} alt="logo" className="w-24 object-contain" />
         <nav>

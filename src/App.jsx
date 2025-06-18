@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import Hero from "./components/Hero";
 import MovieList from "./components/MovieList";
 import TrendingList from "./components/TrendingList";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <MovieList title={"Netflix Originals"} />
         <MovieList title={"Trending Now"} />
         <TrendingList title={"Top 10 Movies"} />
+        <Footer />
       </div>
     </div>
   );

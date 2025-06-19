@@ -3,6 +3,7 @@ import {
   FaChevronDown,
   FaRegBell,
   FaRegHeart,
+  FaBars, // Menambahkan ikon hamburger
 } from "react-icons/fa6";
 import logo from "../assets/logo.png";
 import ava1 from "../assets/avatar/ava1.png";
@@ -11,6 +12,7 @@ import { useEffect, useState } from "react";
 export default function NavBar() {
   const [scrolling, setScrolling] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const dataNavBar = [
     {
       id: 1,
@@ -51,13 +53,18 @@ export default function NavBar() {
 
   return (
     <div
-      className={`flex justify-between px-14 py-4 items-center fixed top-0 left-0 right-0 z-20 ${
+      className={`flex justify-between px-6 md:px-8 lg:px-14 py-4 items-center fixed top-0 left-0 right-0 z-20 ${
         scrolling ? "bg-black" : "bg-transparent"
       } transition-all duration-300 delay-200`}
     >
       <div className="flex gap-12 items-center">
-        <img src={logo} alt="logo" className="w-34 object-contain" />
-        <nav>
+        <img
+          src={logo}
+          alt="logo"
+          className="w-24 md:w-30 lg:w-34 object-contain"
+        />
+
+        <nav className="hidden md:block">
           <ul className="flex gap-4">
             {dataNavBar.map((item) => (
               <li key={item.id} className="text-white">
@@ -66,6 +73,27 @@ export default function NavBar() {
             ))}
           </ul>
         </nav>
+
+        {/* Hamburger Menu mobile */}
+        <div className="md:hidden">
+          <FaBars
+            className="text-white text-2xl cursor-pointer"
+            onClick={() => setShowMenu(!showMenu)}
+          />
+        </div>
+
+        {/* Dropdown Menu mobile */}
+        {showMenu && (
+          <div className="absolute top-15 left-50 rounded-2xl w-1/3 bg-black/90 text-white md:hidden">
+            <ul className="flex flex-col p-4">
+              {dataNavBar.map((item) => (
+                <li key={item.id} className="py-2">
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <div className="flex gap-6 items-center">

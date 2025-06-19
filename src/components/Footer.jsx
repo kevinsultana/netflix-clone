@@ -7,13 +7,15 @@ import {
 } from "react-icons/fa6";
 
 export default function Footer() {
+  const iconClassName =
+    "hover:text-red-700 transition-all duration-300 hover:scale-120";
   return (
     <div className="px-60 pt-20 pb-2">
-      <div className="flex gap-6 text-white text-4xl mb-3">
-        <FaInstagram />
-        <FaFacebookF />
-        <FaTwitter />
-        <FaYoutube />
+      <div className="flex gap-6 text-white text-4xl mb-8">
+        <FaInstagram className={iconClassName} />
+        <FaFacebookF className={iconClassName} />
+        <FaTwitter className={iconClassName} />
+        <FaYoutube className={iconClassName} />
       </div>
       <div className="text-white/60 mb-8">
         <div className="grid grid-cols-4 gap-40 pb-4">
@@ -47,7 +49,7 @@ export default function Footer() {
       </div>
       <div className="flex justify-center">
         <div className="text-white/60 mt-8">
-          <p>© 2022 Netflix, Inc. All rights reserved.</p>
+          <p>© 2025 Netflix, Inc. All rights reserved.</p>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export default function App() {
       <NavBar />
       <Hero />
       <div className="relative pt-[50rem]">
-        <MovieList title={"Netflix Originals"} />
+        <MovieList title={"Netvlix Originals"} />
         <MovieList title={"Trending Now"} />
         <TrendingList title={"Top 10 Movies"} />
         <Footer />

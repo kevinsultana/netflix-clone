@@ -11,7 +11,7 @@ export default function App() {
     <div className="relative bg-slate-950">
       <NavBar />
       <Hero />
-      <div className="relative pt-[20rem] md:pt-[42rem] xl:pt-[50rem]">
+      <div className="relative pt-[17rem]  md:pt-[42rem] xl:pt-[50rem]">
         <MovieList title={"Netvlix Movies"} />
         {/* <MovieList title={"Netvlix Tv Shows"} /> */}
         <TVList title={"Netvlix Tv Shows"} />

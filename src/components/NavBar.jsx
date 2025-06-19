@@ -13,6 +13,7 @@ export default function NavBar() {
   const [scrolling, setScrolling] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+
   const dataNavBar = [
     {
       id: 1,
@@ -57,11 +58,11 @@ export default function NavBar() {
         scrolling ? "bg-black" : "bg-transparent"
       } transition-all duration-300 delay-200`}
     >
-      <div className="flex gap-12 items-center">
+      <div className="flex gap-4 md:gap-12 items-center">
         <img
           src={logo}
           alt="logo"
-          className="w-24 md:w-30 lg:w-34 object-contain"
+          className="w-16 md:w-30 lg:w-34 object-contain"
         />
 
         <nav className="hidden md:block">
@@ -77,7 +78,7 @@ export default function NavBar() {
         {/* Hamburger Menu mobile */}
         <div className="md:hidden">
           <FaBars
-            className="text-white text-2xl cursor-pointer"
+            className="text-white text-lg cursor-pointer"
             onClick={() => setShowMenu(!showMenu)}
           />
         </div>
@@ -96,25 +97,25 @@ export default function NavBar() {
         )}
       </div>
 
-      <div className="flex gap-6 items-center">
+      <div className="flex gap-4 md:gap-8 items-center">
         {showSearchBar && (
-          <div className="flex w-2xs">
+          <div className="flex w-24 bg-red-400 relative right-65">
             <input
               type="text"
               placeholder="Search..."
-              className="p-2 rounded-md w-full bg-white"
+              className="p-2 rounded-md bg-white"
             />
           </div>
         )}
         <FaMagnifyingGlass
           onClick={() => setShowSearchBar(!showSearchBar)}
-          className="text-2xl text-white cursor-pointer"
+          className="text-lg md:text-2xl text-white cursor-pointer"
         />
         {/* <FaRegBell className="text-2xl text-white" /> */}
-        <FaRegHeart className="text-2xl text-white" />
+        <FaRegHeart className="text-lg md:text-2xl text-white" />
         <button className="flex items-center gap-2">
-          <img src={ava1} alt="avatar" className="w-8" />
-          <FaChevronDown className="text-lg text-white" />
+          <img src={ava1} alt="avatar" className="w-6 md:w-8" />
+          <FaChevronDown className="text-lg md:text-2xl text-white" />
         </button>
       </div>
     </div>

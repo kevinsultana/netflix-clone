@@ -12,7 +12,7 @@ export default function Hero() {
         <img
           src={hero}
           alt="Hero"
-          className="w-full h-1/6 md:h-auto absolute z-0"
+          className="w-full h-1/5 md:h-auto absolute z-0"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60"></div>
       </div>
@@ -22,25 +22,25 @@ export default function Hero() {
           <img
             src={logoGlitch}
             alt="logo-glitch"
-            className="w-10 md:w-20 lg:w-24"
+            className="w-6 md:w-14 lg:w-24"
           />
-          <p className="text-white uppercase font-bold text-lg md:text-xl lg:text-3xl">
+          <p className="text-white uppercase font-bold text-base md:text-xl lg:text-3xl">
             s e r i e s
           </p>
         </div>
 
-        <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase">
+        <h1 className="text-white text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase">
           House of ninjas
         </h1>
 
-        <p className="text-white my-4 sm:my-6 text-base sm:text-lg md:text-xl">
+        <p className="text-white my-4 sm:my-6 text-xs sm:text-lg md:text-xl">
           Years after retiring from their formidable ninja lives, a
           dysfunctional family must return to shadowy missions to counteract a
           string of looming threats.
         </p>
 
         <div className="flex gap-4">
-          <button className="bg-white text-black py-2 px-6 sm:px-8 flex gap-2 items-center rounded-xl">
+          <button className="bg-white text-black py-2 px-6 md:px-8 flex gap-2 items-center rounded-xl">
             <FaPlay />
             <span className="hidden sm:inline">Play</span>
           </button>

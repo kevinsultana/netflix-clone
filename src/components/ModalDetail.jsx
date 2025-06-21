@@ -45,7 +45,7 @@ export default function ModalDetail({ movie, onClose }) {
 
   return (
     <div className="fixed inset-0 z-40 bg-black/80 flex items-center justify-center px-4">
-      <div className="bg-gray-900 text-white rounded-lg w-full max-w-3xl overflow-hidden shadow-lg relative">
+      <div className="bg-gray-900 text-white rounded-lg w-full max-w-3xl overflow-hidden shadow-lg relative p-8">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full text-2xl z-50 cursor-pointer"

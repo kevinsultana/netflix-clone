@@ -14,7 +14,7 @@ export default function MovieList({ title, data, onClick }) {
   };
 
   return (
-    <div className="text-white text-xl md:text-3xl relative pl-6 md:pl-14 pb-14 group">
+    <div className="text-white relative pl-6 md:pl-14 pb-14 group ">
       <h1 className="font-bold text-lg md:text-4xl mb-4">{title}</h1>
 
       <button
@@ -24,10 +24,10 @@ export default function MovieList({ title, data, onClick }) {
         <FaChevronLeft size={20} />
       </button>
 
-      <div className="overflow-x-hidden">
+      <div className="overflow-x-clip ">
         <div
           ref={scrollRef}
-          className="flex gap-2 transition-all duration-300 scroll-smooth overflow-x-auto scrollbar-hide"
+          className="flex gap-2 p-3 transition-all duration-300 scroll-smooth overflow-x-auto scrollbar-hide "
         >
           {data.map((item) => (
             <div key={item.id} className="flex-shrink-0">

@@ -15,7 +15,7 @@ export default function TrendingList({ title, data, onClick }) {
   };
 
   return (
-    <div className="text-white text-xl md:text-3xl relative pl-6 md:pl-14 pb-14 group">
+    <div className="text-white  relative pl-6 md:pl-14 pb-14 group ">
       <h1 className="font-bold text-lg md:text-4xl mb-4">{title}</h1>
 
       {/* Tombol kiri */}
@@ -26,10 +26,10 @@ export default function TrendingList({ title, data, onClick }) {
         <FaChevronLeft size={20} />
       </button>
 
-      <div className="overflow-x-visible my-6">
+      <div className="overflow-x-clip">
         <div
           ref={scrollRef}
-          className="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth scrollbar-hide px-1 md:px-0 mr-12"
+          className="flex gap-4 p-3 md:gap-6 overflow-x-auto scroll-smooth scrollbar-hide px-1 md:px-0 mr-12"
         >
           {data?.slice(0, 10).map((item, index) => (
             <div key={item.id} className="flex-shrink-0">

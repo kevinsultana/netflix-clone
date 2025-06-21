@@ -33,10 +33,10 @@ export default function Hero({ data }) {
         </div>
 
         <h1 className="text-white text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase">
-          {heroData?.title || heroData?.original_title}
+          {heroData?.title || heroData?.original_title || heroData?.name}
         </h1>
 
-        <p className="text-white my-4 sm:my-6 text-xs sm:text-lg md:text-xl">
+        <p className="text-white my-4 sm:my-6 text-xs sm:text-lg md:text-xl max-h-34 overflow-hidden">
           {heroData?.overview}
         </p>
 

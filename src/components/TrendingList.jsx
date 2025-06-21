@@ -1,22 +1,51 @@
-import React from "react";
+import React, { useRef } from "react";
 import TrendingCard from "./TrendingCard/TrendingCard";
 import { DataPopular } from "../constants/DataPopular";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-export default function TrendingList({ title }) {
+export default function TrendingList({ title, data }) {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    const scrollAmount = window.innerWidth > 768 ? 480 : 320;
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="text-white relative pl-6 md:pl-14 pb-10">
-      <h1 className="text-lg md:text-4xl font-bold">{title}</h1>
-      <div className="overflow-x-clip mt-12">
-        <div className="flex gap-16 md:gap-4">
-          {DataPopular.results.map((item, index) => {
-            return (
-              <div key={item.id}>
-                <TrendingCard data={item} index={index} />
-              </div>
-            );
-          })}
+    <div className="text-white text-xl md:text-3xl relative pl-6 md:pl-14 pb-14 group">
+      <h1 className="font-bold text-lg md:text-4xl mb-4">{title}</h1>
+
+      {/* Tombol kiri */}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 hidden md:group-hover:flex bg-black/60 hover:bg-black p-2 rounded-full"
+      >
+        <FaChevronLeft size={20} />
+      </button>
+
+      <div className="overflow-x-visible my-6">
+        <div
+          ref={scrollRef}
+          className="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth scrollbar-hide px-1 md:px-0 mr-12"
+        >
+          {data?.slice(0, 10).map((item, index) => (
+            <div key={item.id} className="flex-shrink-0">
+              <TrendingCard data={item} index={index} />
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* Tombol kanan */}
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 hidden md:group-hover:flex bg-black/60 hover:bg-black p-2 rounded-full"
+      >
+        <FaChevronRight size={20} />
+      </button>
     </div>
   );
 }

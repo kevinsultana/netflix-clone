@@ -3,7 +3,7 @@ import {
   FaChevronDown,
   FaRegBell,
   FaRegHeart,
-  FaBars, // Menambahkan ikon hamburger
+  FaBars,
 } from "react-icons/fa6";
 import logo from "../assets/logo.png";
 import ava1 from "../assets/avatar/ava1.png";

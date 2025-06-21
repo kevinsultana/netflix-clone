@@ -1,16 +1,20 @@
 import React from "react";
-import hero from "../assets/hero/hero.png";
+
 import logoGlitch from "../assets/logoGlitch.png";
 import { FaPlay } from "react-icons/fa6";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
-export default function Hero() {
+export default function Hero({ data }) {
+  // const random = Math.floor(Math.random() * 20);
+  const heroData = data[0];
+
   return (
     <div>
       {/* hero bg */}
       <div>
         <img
-          src={hero}
+          // src={`https://image.tmdb.org/t/p/w780${heroData?.backdrop_path}`}
+          src={`${heroData?.backdrop_path}`}
           alt="Hero"
           className="w-full h-1/5 md:h-auto absolute z-0"
         />
@@ -25,18 +29,16 @@ export default function Hero() {
             className="w-6 md:w-14 lg:w-24"
           />
           <p className="text-white uppercase font-bold text-base md:text-xl lg:text-3xl">
-            s e r i e s
+            {heroData?.media_type === "movie" ? "m o v i e s" : "s e r i e s"}
           </p>
         </div>
 
         <h1 className="text-white text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase">
-          House of ninjas
+          {heroData?.title || heroData?.original_title}
         </h1>
 
         <p className="text-white my-4 sm:my-6 text-xs sm:text-lg md:text-xl">
-          Years after retiring from their formidable ninja lives, a
-          dysfunctional family must return to shadowy missions to counteract a
-          string of looming threats.
+          {heroData?.overview}
         </p>
 
         <div className="flex gap-4">

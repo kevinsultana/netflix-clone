@@ -7,7 +7,7 @@ export default function TvShows() {
   return (
     <div className="relative bg-slate-950">
       <NavBar />
-      <Hero />
+      {/* <Hero /> */}
       <div className="relative pt-[17rem]  md:pt-[42rem] xl:pt-[50rem]">
         <Footer />
       </div>

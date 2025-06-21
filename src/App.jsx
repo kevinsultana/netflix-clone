@@ -3,10 +3,12 @@ import Home from "./pages/Home";
 import TvShows from "./pages/TvShows";
 import Movies from "./pages/Movies";
 import Mylist from "./pages/Mylist";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tv-shows" element={<TvShows />} />

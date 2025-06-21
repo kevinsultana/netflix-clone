@@ -1,20 +1,103 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Hero from "../components/Hero";
 import MovieList from "../components/MovieList";
 import TVList from "../components/TVList";
 import TrendingList from "../components/TrendingList";
 import Footer from "../components/Footer";
+import { BaseApi } from "../api/BaseApi";
+
+import { DataMovie } from "../constants/DataMovie";
+
+import hero from "../assets/hero/hero.png";
 
 export default function Home() {
+  const [trendingThisWeek, setTrendingThisWeek] = useState([]);
+  const [topTenMovies, setTopTenMovies] = useState([]);
+  const [topTenTvShows, setTopTenTvShows] = useState([]);
+  const [trendingToday, setTrendingToday] = useState([]);
+
+  const initData = [
+    {
+      backdrop_path: hero,
+      title: "The Shawshank Redemption",
+      overview:
+        "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      media_type: "movie",
+    },
+  ];
+
+  const getTrendingAll = async () => {
+    try {
+      const response = await BaseApi.get("/trending/all/week");
+      setTrendingThisWeek(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopTenMovies = async () => {
+    try {
+      const response = await BaseApi.get("/trending/movie/day");
+      setTopTenMovies(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopTenTvShows = async () => {
+    try {
+      const response = await BaseApi.get("/trending/tv/day");
+      setTopTenTvShows(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingToday = async () => {
+    try {
+      const resonse = await BaseApi.get("/trending/all/day");
+      setTrendingToday(resonse.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   getTrendingAll();
+  //   getTopTenMovies();
+  //   getTopTenTvShows();
+  //   getTrendingToday();
+  // }, []);
+
   return (
     <div className="relative bg-slate-950">
       <NavBar />
-      <Hero />
-      <div className="relative pt-[17rem]  md:pt-[42rem] xl:pt-[50rem]">
-        <MovieList title={"Netvlix Movies"} />
-        <TVList title={"Netvlix Tv Shows"} />
-        <TrendingList title={"Top 10 Movies"} />
+      <Hero
+        // data={trendingThisWeek}
+        data={initData}
+      />
+      <div className="relative pt-[17rem] md:pt-[42rem] xl:pt-[55rem]">
+        <MovieList
+          title={"Trending Today"}
+          // data={trendingToday}
+          data={DataMovie.results}
+        />
+        <TrendingList
+          title={"Top 10 Movies"}
+          // data={topTenMovies}
+          data={DataMovie.results}
+        />
+        <MovieList
+          title={"Trending This Week"}
+          // data={trendingThisWeek}
+          data={DataMovie.results}
+        />
+        <TrendingList
+          title={"Top 10 Tv Shows"}
+          // data={topTenTvShows}
+          data={DataMovie.results}
+        />
         <Footer />
       </div>
     </div>

@@ -1,10 +1,9 @@
 import React from "react";
-import imgPlaceholder from "../../assets/placeholder.png";
 
 export default function TrendingCard({ data, index }) {
-  const { title, poster_path, name } = data;
+  const { poster_path } = data;
   return (
-    <div className="w-34 h-24 md:w-60 md:h-36 mt-4 md:mt-0 rounded-md flex justify-end pr-4">
+    <div className="w-34 h-24 relative md:w-60 md:h-50 mt-4 md:mt-0 rounded-md flex justify-end pr-4">
       <div className="flex items-center">
         <h1 className="font-londrina text-[165px] text-white/40">
           {index + 1}

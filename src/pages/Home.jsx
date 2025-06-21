@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Hero from "../components/Hero";
 import MovieList from "../components/MovieList";
-import TVList from "../components/TVList";
 import TrendingList from "../components/TrendingList";
 import Footer from "../components/Footer";
 import { BaseApi } from "../api/BaseApi";

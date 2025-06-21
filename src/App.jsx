@@ -4,6 +4,7 @@ import TvShows from "./pages/TvShows";
 import Movies from "./pages/Movies";
 import Mylist from "./pages/Mylist";
 import ScrollToTop from "./components/ScrollToTop";
+import SearchPage from "./pages/SearchPage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/tv-shows" element={<TvShows />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/my-list" element={<Mylist />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,7 +3,7 @@ import TrendingCard from "./TrendingCard/TrendingCard";
 import { DataPopular } from "../constants/DataPopular";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-export default function TrendingList({ title, data }) {
+export default function TrendingList({ title, data, onClick }) {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -33,7 +33,7 @@ export default function TrendingList({ title, data }) {
         >
           {data?.slice(0, 10).map((item, index) => (
             <div key={item.id} className="flex-shrink-0">
-              <TrendingCard data={item} index={index} />
+              <TrendingCard data={item} index={index} onClick={onClick} />
             </div>
           ))}
         </div>

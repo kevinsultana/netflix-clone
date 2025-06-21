@@ -10,8 +10,11 @@ import { BaseApi } from "../api/BaseApi";
 import { DataMovie } from "../constants/DataMovie";
 
 import hero from "../assets/hero/hero.png";
+import ModalDetail from "../components/ModalDetail";
 
 export default function Home() {
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
   const [trendingThisWeek, setTrendingThisWeek] = useState([]);
   const [topTenMovies, setTopTenMovies] = useState([]);
   const [topTenTvShows, setTopTenTvShows] = useState([]);
@@ -82,24 +85,34 @@ export default function Home() {
           title={"Trending Today"}
           // data={trendingToday}
           data={DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <TrendingList
           title={"Top 10 Movies"}
           // data={topTenMovies}
           data={DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <MovieList
           title={"Trending This Week"}
           // data={trendingThisWeek}
           data={DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <TrendingList
           title={"Top 10 Tv Shows"}
           // data={topTenTvShows}
           data={DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <Footer />
       </div>
+      {selectedMovie && (
+        <ModalDetail
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
     </div>
   );
 }

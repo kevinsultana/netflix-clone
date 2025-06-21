@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import MovieCard from "./MovieCard/MovieCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-export default function MovieList({ title, data }) {
+export default function MovieList({ title, data, onClick }) {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -31,7 +31,7 @@ export default function MovieList({ title, data }) {
         >
           {data.map((item) => (
             <div key={item.id} className="flex-shrink-0">
-              <MovieCard data={item} />
+              <MovieCard data={item} onClick={onClick} />
             </div>
           ))}
         </div>

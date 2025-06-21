@@ -1,11 +1,14 @@
 import React from "react";
 import Logo from "../../assets/logoGlitch.png";
 
-export default function MovieCard({ data }) {
+export default function MovieCard({ data, onClick }) {
   const { title, backdrop_path, name } = data;
 
   return (
-    <div className="w-40 md:w-60">
+    <div
+      onClick={() => onClick(data)}
+      className="w-40 md:w-60 cursor-pointer hover:scale-105 transition-all duration-300"
+    >
       <div className="relative h-32 md:h-36 rounded-xl overflow-hidden">
         <img
           src={Logo}

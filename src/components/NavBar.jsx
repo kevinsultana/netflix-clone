@@ -8,6 +8,7 @@ import {
 import logo from "../assets/logo.png";
 import ava1 from "../assets/avatar/ava1.png";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 export default function NavBar() {
   const [scrolling, setScrolling] = useState(false);
@@ -18,22 +19,22 @@ export default function NavBar() {
     {
       id: 1,
       name: "Home",
+      path: "/",
     },
     {
       id: 2,
       name: "TV Shows",
+      path: "/tv-shows",
     },
     {
       id: 3,
       name: "Movies",
+      path: "/movies",
     },
     {
       id: 4,
-      name: "New & Popular",
-    },
-    {
-      id: 5,
       name: "My List",
+      path: "/my-list",
     },
   ];
 
@@ -68,9 +69,9 @@ export default function NavBar() {
         <nav className="hidden md:block">
           <ul className="flex gap-4">
             {dataNavBar.map((item) => (
-              <li key={item.id} className="text-white">
+              <Link to={item.path} key={item.id} className="text-white">
                 {item.name}
-              </li>
+              </Link>
             ))}
           </ul>
         </nav>

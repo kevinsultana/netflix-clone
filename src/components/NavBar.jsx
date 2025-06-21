@@ -99,11 +99,11 @@ export default function NavBar() {
 
       <div className="flex gap-4 md:gap-8 items-center">
         {showSearchBar && (
-          <div className="flex w-24 bg-red-400 relative right-65">
+          <div className="flex w-24 relative right-20">
             <input
               type="text"
               placeholder="Search..."
-              className="p-2 rounded-md bg-white"
+              className=" p-0.5 md:p-2 rounded-md bg-white"
             />
           </div>
         )}

@@ -21,7 +21,7 @@ export default function Home() {
 
   const initData = [
     {
-      backdrop_path: hero,
+      backdrop_path: "/uIpJPDNFoeX0TVml9smPrs9KUVx.jpg",
       title: "The Shawshank Redemption",
       overview:
         "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
@@ -66,10 +66,10 @@ export default function Home() {
   };
 
   // useEffect(() => {
-  //   getTrendingAll();
-  //   getTopTenMovies();
-  //   getTopTenTvShows();
   //   getTrendingToday();
+  //   getTopTenMovies();
+  //   getTrendingAll();
+  //   getTopTenTvShows();
   // }, []);
 
   return (

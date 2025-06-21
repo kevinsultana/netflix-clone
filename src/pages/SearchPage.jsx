@@ -16,8 +16,8 @@ export default function SearchPage() {
         try {
           const res = await BaseApi.get(`/search/multi?query=${query}`);
           setResults(res.data.results);
-        } catch (err) {
-          console.error("Search error:", err);
+        } catch (error) {
+          console.error(error);
         }
       };
       fetchSearchResults();

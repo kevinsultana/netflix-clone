@@ -5,7 +5,7 @@ import { FaPlay } from "react-icons/fa6";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function Hero({ data }) {
-  // const random = Math.floor(Math.random() * 20);
+  const random = Math.floor(Math.random() * 20);
   const heroData = data[0];
 
   return (
@@ -13,8 +13,7 @@ export default function Hero({ data }) {
       {/* hero bg */}
       <div>
         <img
-          // src={`https://image.tmdb.org/t/p/w780${heroData?.backdrop_path}`}
-          src={`${heroData?.backdrop_path}`}
+          src={`https://image.tmdb.org/t/p/w780${heroData?.backdrop_path}`}
           alt="Hero"
           className="w-full h-1/5 md:h-auto absolute z-0"
         />

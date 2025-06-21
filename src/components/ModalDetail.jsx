@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { GenreData } from "../constants/Genre";
+import { BaseApi } from "../api/BaseApi";
 
 export default function ModalDetail({ movie, onClose }) {
+  const [videoKey, setVideoKey] = useState(null);
+
   if (!movie) return null;
 
-  const { title, name, overview, backdrop_path, genre_ids } = movie;
+  const { title, name, overview, backdrop_path, genre_ids, id, media_type } =
+    movie;
   // console.log(movie);
 
   const getGenreNames = (genreIds) => {
@@ -19,21 +23,51 @@ export default function ModalDetail({ movie, onClose }) {
     return genreNames;
   };
 
+  const getVideo = async () => {
+    try {
+      const response = await BaseApi.get(`/${media_type}/${id}/videos`);
+      const trailer = response.data.results.filter(
+        (item) => item.site === "YouTube" && item.type === "Trailer"
+      );
+      if (trailer.length > 0) {
+        setVideoKey(trailer[0].key);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      getVideo();
+    }, 1500);
+  }, [id]);
+
   return (
     <div className="fixed inset-0 z-40 bg-black/80 flex items-center justify-center px-4">
       <div className="bg-gray-900 text-white rounded-lg w-full max-w-3xl overflow-hidden shadow-lg relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white text-2xl z-50"
+          className="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full text-2xl z-50 cursor-pointer"
         >
           <FaTimes />
         </button>
 
-        <img
-          src={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
-          alt={title || name}
-          className="w-full h-100 object-cover"
-        />
+        {videoKey && (
+          <iframe
+            src={`https://www.youtube.com/embed/${videoKey}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-100"
+          ></iframe>
+        )}
+        {videoKey === null && (
+          <img
+            src={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
+            alt={title || name}
+            className="w-full h-100 object-cover"
+          />
+        )}
 
         <div className="p-6 space-y-4">
           <h2 className="text-2xl font-bold">{title || name}</h2>

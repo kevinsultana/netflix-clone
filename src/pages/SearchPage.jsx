@@ -4,11 +4,13 @@ import MovieCard from "../components/MovieCard/MovieCard";
 import { BaseApi } from "../api/BaseApi";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import ModalDetail from "../components/ModalDetail";
 
 export default function SearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [results, setResults] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     if (query) {
@@ -36,15 +38,27 @@ export default function SearchPage() {
         {results.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {results.map((item) =>
-              item.poster_path ? <MovieCard key={item.id} data={item} /> : null
+              item.poster_path ? (
+                <MovieCard
+                  key={item.id}
+                  data={item}
+                  onClick={() => setSelectedMovie(item)}
+                />
+              ) : null
             )}
           </div>
         ) : (
           <p>No results found.</p>
         )}
       </main>
-
       <Footer />
+      {selectedMovie && (
+        <ModalDetail
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+          media_type={selectedMovie.media_type}
+        />
+      )}
     </div>
   );
 }

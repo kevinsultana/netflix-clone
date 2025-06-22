@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { GenreData } from "../constants/Genre";
 import { BaseApi } from "../api/BaseApi";
+import { FaHeart } from "react-icons/fa6";
 
 export default function ModalDetail({ movie, onClose, media_type }) {
   const [videoKey, setVideoKey] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   if (!movie) return null;
 
@@ -42,6 +44,28 @@ export default function ModalDetail({ movie, onClose, media_type }) {
     }, 1500);
   }, [id]);
 
+  const handleFavorite = () => {
+    const saved = JSON.parse(localStorage.getItem("favorite")) || [];
+    const exists = saved.some((item) => item.id === movie.id);
+    let updated;
+
+    if (exists) {
+      updated = saved.filter((item) => item.id !== movie.id);
+      setIsFavorite(false);
+    } else {
+      updated = [...saved, movie];
+      setIsFavorite(true);
+    }
+
+    localStorage.setItem("favorite", JSON.stringify(updated));
+  };
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("favorite")) || [];
+    const exists = saved.some((item) => item.id === id);
+    setIsFavorite(exists);
+  }, [id]);
+
   return (
     <div className="fixed inset-0 z-40 bg-black/80 flex items-center justify-center px-4">
       <div className="bg-gray-900 text-white rounded-lg w-full max-w-3xl overflow-hidden shadow-lg relative p-8">
@@ -69,7 +93,21 @@ export default function ModalDetail({ movie, onClose, media_type }) {
         )}
 
         <div className="p-6 space-y-4">
-          <h2 className="text-2xl font-bold">{title || name}</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold">{title || name}</h2>
+            <button
+              onClick={handleFavorite}
+              className={`p-2 rounded-full ${
+                isFavorite ? "bg-slate-600" : "bg-slate-400"
+              } transition-colors duration-300`}
+            >
+              <FaHeart
+                className={
+                  isFavorite ? "text-red-500 text-xl" : "text-white text-xl"
+                }
+              />
+            </button>
+          </div>
           {getGenreNames(genre_ids).map((genre, index) => (
             <span
               key={index}

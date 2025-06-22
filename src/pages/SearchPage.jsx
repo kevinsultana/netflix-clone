@@ -26,7 +26,7 @@ export default function SearchPage() {
     }
   }, [query]);
 
-  console.log(results);
+  // console.log(results);
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-950">

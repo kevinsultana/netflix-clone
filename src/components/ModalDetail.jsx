@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { GenreData } from "../constants/Genre";
 import { BaseApi } from "../api/BaseApi";
-import { FaHeart } from "react-icons/fa6";
+import { FaHeart, FaStar } from "react-icons/fa6";
 
 export default function ModalDetail({ movie, onClose, media_type }) {
   const [videoKey, setVideoKey] = useState(null);
@@ -10,8 +10,16 @@ export default function ModalDetail({ movie, onClose, media_type }) {
 
   if (!movie) return null;
 
-  const { title, name, overview, backdrop_path, genre_ids, id, poster_path } =
-    movie;
+  const {
+    title,
+    name,
+    overview,
+    backdrop_path,
+    genre_ids,
+    id,
+    poster_path,
+    vote_average,
+  } = movie;
 
   const getGenreNames = (genreIds) => {
     const genreNames = [];
@@ -110,6 +118,12 @@ export default function ModalDetail({ movie, onClose, media_type }) {
                 }
               />
             </button>
+          </div>
+          <div className="flex items-center">
+            <FaStar className="text-yellow-400 text-lg" />
+            <p className="text-sm text-gray-300 ml-2">
+              {vote_average.toFixed(1)}
+            </p>
           </div>
           {getGenreNames(genre_ids).map((genre, index) => (
             <span

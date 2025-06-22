@@ -9,7 +9,6 @@ export default function ModalDetail({ movie, onClose, media_type }) {
   if (!movie) return null;
 
   const { title, name, overview, backdrop_path, genre_ids, id } = movie;
-  // console.log(movie);
 
   const getGenreNames = (genreIds) => {
     const genreNames = [];
@@ -31,7 +30,7 @@ export default function ModalDetail({ movie, onClose, media_type }) {
       if (trailer.length > 0) {
         setVideoKey(trailer[0].key);
       }
-      // console.log(trailer);
+      // console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }

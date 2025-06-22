@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { TvShowGenre } from "../constants/TvShowGenre";
+import { MovieGenre } from "../constants/MovieGenre";
 import { BaseApi } from "../api/BaseApi";
 import logoGlitch from "../assets/logoGlitch.png";
 import { MagnifyingGlass } from "react-loader-spinner";
 
-export default function TvShowListByGenre({ onClick }) {
+export default function MovieListByGenre({ onClick }) {
   const [search, setSearch] = useState("");
-  const [filteredGenres, setFilteredGenres] = useState(TvShowGenre);
+  const [filteredGenres, setFilteredGenres] = useState(MovieGenre);
   const [selectedGenre, setSelectedGenre] = useState({});
   const [dataByGenre, setDataByGenre] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ export default function TvShowListByGenre({ onClick }) {
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearch(value);
-    const filtered = TvShowGenre.filter((genre) =>
+    const filtered = MovieGenre.filter((genre) =>
       genre.name.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredGenres(filtered);
@@ -28,7 +28,7 @@ export default function TvShowListByGenre({ onClick }) {
     const id = genre.id;
     try {
       const response = await BaseApi.get(
-        `/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`
+        `/discover/movie?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`
       );
       const result = response.data.results;
       setDataByGenre(result);
@@ -58,7 +58,7 @@ export default function TvShowListByGenre({ onClick }) {
         className={
           filteredGenres.length < 8
             ? "flex justify-center flex-wrap gap-4"
-            : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4 pr-6"
+            : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pr-6"
         }
       >
         {filteredGenres.length > 0 ? (
@@ -97,7 +97,7 @@ export default function TvShowListByGenre({ onClick }) {
         <div className="my-6">
           {selectedGenre.name && (
             <h1 className="text-4xl font-bold mb-2">
-              {selectedGenre.name} Tv Shows
+              {selectedGenre.name} Movies
             </h1>
           )}
           <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pr-6">

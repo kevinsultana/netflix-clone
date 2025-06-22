@@ -40,7 +40,7 @@ export default function TvShows() {
           data={DataTvShow.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
-        <TvShowListByGenre />
+        <TvShowListByGenre onClick={(movie) => setSelectedMovie(movie)} />
         <Footer />
       </div>
       {selectedMovie && (

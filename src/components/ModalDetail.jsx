@@ -3,13 +3,12 @@ import { FaTimes } from "react-icons/fa";
 import { GenreData } from "../constants/Genre";
 import { BaseApi } from "../api/BaseApi";
 
-export default function ModalDetail({ movie, onClose }) {
+export default function ModalDetail({ movie, onClose, media_type }) {
   const [videoKey, setVideoKey] = useState(null);
 
   if (!movie) return null;
 
-  const { title, name, overview, backdrop_path, genre_ids, id, media_type } =
-    movie;
+  const { title, name, overview, backdrop_path, genre_ids, id } = movie;
   // console.log(movie);
 
   const getGenreNames = (genreIds) => {
@@ -32,6 +31,7 @@ export default function ModalDetail({ movie, onClose }) {
       if (trailer.length > 0) {
         setVideoKey(trailer[0].key);
       }
+      // console.log(trailer);
     } catch (error) {
       console.log(error);
     }

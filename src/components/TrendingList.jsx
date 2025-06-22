@@ -31,7 +31,7 @@ export default function TrendingList({ title, data, onClick }) {
           ref={scrollRef}
           className="flex gap-4 p-3 md:gap-6 overflow-x-auto scroll-smooth scrollbar-hide px-1 md:px-0 mr-12"
         >
-          {data?.slice(0, 10).map((item, index) => (
+          {data?.slice(1, 11).map((item, index) => (
             <div key={item.id} className="flex-shrink-0">
               <TrendingCard data={item} index={index} onClick={onClick} />
             </div>

@@ -110,6 +110,7 @@ export default function Home() {
         <ModalDetail
           movie={selectedMovie}
           onClose={() => setSelectedMovie(null)}
+          media_type={selectedMovie.media_type === "movie" ? "movie" : "tv"}
         />
       )}
     </div>

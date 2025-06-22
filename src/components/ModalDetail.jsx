@@ -10,7 +10,8 @@ export default function ModalDetail({ movie, onClose, media_type }) {
 
   if (!movie) return null;
 
-  const { title, name, overview, backdrop_path, genre_ids, id } = movie;
+  const { title, name, overview, backdrop_path, genre_ids, id, poster_path } =
+    movie;
 
   const getGenreNames = (genreIds) => {
     const genreNames = [];
@@ -86,9 +87,11 @@ export default function ModalDetail({ movie, onClose, media_type }) {
         )}
         {videoKey === null && (
           <img
-            src={`https://image.tmdb.org/t/p/w780${backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w780${
+              backdrop_path ? backdrop_path : poster_path
+            }`}
             alt={title || name}
-            className="w-full h-100 object-cover"
+            className="w-full h-100 object-contain"
           />
         )}
 

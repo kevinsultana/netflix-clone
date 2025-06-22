@@ -10,7 +10,7 @@ export default function MovieListByGenre({ onClick }) {
   const [selectedGenre, setSelectedGenre] = useState({});
   const [dataByGenre, setDataByGenre] = useState([]);
   const [loading, setLoading] = useState(false);
-  //   console.log(dataByGenre);
+  // console.log(dataByGenre);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -44,7 +44,7 @@ export default function MovieListByGenre({ onClick }) {
   return (
     <div className="text-white relative pl-6 md:pl-14 pb-14 group">
       <div className="mb-6 flex items-center gap-4 justify-center">
-        <h1 className="text-4xl font-bold mb-2">TV Show Genre</h1>
+        <h1 className="text-4xl font-bold mb-2">Movie Genre</h1>
         <input
           type="text"
           value={search}
@@ -69,7 +69,7 @@ export default function MovieListByGenre({ onClick }) {
               className={
                 selectedGenre.name === genre.name
                   ? "p-3 text-xl bg-gray-600 rounded cursor-pointer"
-                  : "p-3 text-xl bg-gray-700 rounded hover:bg-gray-600 cursor-pointer"
+                  : "p-3 text-xl bg-gray-800 rounded hover:bg-gray-600 cursor-pointer"
               }
             >
               {genre.name}
@@ -114,11 +114,11 @@ export default function MovieListByGenre({ onClick }) {
                 />
                 <img
                   src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
-                  alt={movie.name}
+                  alt={movie.title || movie.name}
                   className="w-full h-full  object-cover rounded-xl"
                 />
-                <h1 className="relative bottom-7 pl-2 bg-black/40 text-lg">
-                  {movie.name}
+                <h1 className="relative bottom-7 pl-2 text-white bg-black/40 text-lg z-10">
+                  {movie.title || movie.name}
                 </h1>
               </div>
             ))}

@@ -15,7 +15,7 @@ export default function Movies() {
 
   const getTrendingMovie = async () => {
     try {
-      const response = await BaseApi.get("/trending/movie/day");
+      const response = await BaseApi.get("/trending/movie/day?language=en-US");
       const results = response.data.results;
       setTrendingMovie(results);
     } catch (error) {

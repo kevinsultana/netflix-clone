@@ -15,7 +15,7 @@ export default function TvShows() {
 
   const getTrendingTvShow = async () => {
     try {
-      const response = await BaseApi.get("/trending/tv/day");
+      const response = await BaseApi.get("/trending/tv/day?language=en-US");
       const results = response.data.results;
       setTrendingTvShow(results);
     } catch (error) {

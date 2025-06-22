@@ -26,6 +26,8 @@ export default function SearchPage() {
     }
   }, [query]);
 
+  console.log(results);
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-950">
       <NavBar />
@@ -36,14 +38,21 @@ export default function SearchPage() {
         </h1>
 
         {results.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {results.map((item) =>
               item.poster_path ? (
-                <MovieCard
+                <div
+                  className="rounded-lg overflow-hidden hover:scale-105 transition duration-300 ease-in-out"
                   key={item.id}
-                  data={item}
                   onClick={() => setSelectedMovie(item)}
-                />
+                >
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                    alt={item.title}
+                    className="w-full h-90 object-cover mb-2"
+                  />
+                  <h2>{item.title || item.name}</h2>
+                </div>
               ) : null
             )}
           </div>

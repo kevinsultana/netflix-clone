@@ -31,7 +31,7 @@ export default function Home() {
 
   const getTrendingAll = async () => {
     try {
-      const response = await BaseApi.get("/trending/all/week");
+      const response = await BaseApi.get("/trending/all/week?language=en-US");
       setTrendingThisWeek(response.data.results);
     } catch (error) {
       console.log(error);
@@ -40,7 +40,7 @@ export default function Home() {
 
   const getTopTenMovies = async () => {
     try {
-      const response = await BaseApi.get("/trending/movie/day");
+      const response = await BaseApi.get("/trending/movie/day?language=en-US");
       setTopTenMovies(response.data.results);
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ export default function Home() {
 
   const getTopTenTvShows = async () => {
     try {
-      const response = await BaseApi.get("/trending/tv/day");
+      const response = await BaseApi.get("/trending/tv/day?language=en-US");
       setTopTenTvShows(response.data.results);
     } catch (error) {
       console.log(error);
@@ -58,7 +58,7 @@ export default function Home() {
 
   const getTrendingToday = async () => {
     try {
-      const resonse = await BaseApi.get("/trending/all/day");
+      const resonse = await BaseApi.get("/trending/all/day?language=en-US");
       setTrendingToday(resonse.data.results);
     } catch (error) {
       console.log(error);

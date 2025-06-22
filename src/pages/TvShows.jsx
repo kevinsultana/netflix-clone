@@ -6,6 +6,7 @@ import { DataTvShow } from "../constants/DataTvShows";
 import TrendingList from "../components/TrendingList";
 import { BaseApi } from "../api/BaseApi";
 import ModalDetail from "../components/ModalDetail";
+import TvShowListByGenre from "../components/TvShowListByGenre";
 
 export default function TvShows() {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -39,6 +40,7 @@ export default function TvShows() {
           data={DataTvShow.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
+        <TvShowListByGenre />
         <Footer />
       </div>
       {selectedMovie && (

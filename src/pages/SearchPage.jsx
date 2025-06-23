@@ -5,20 +5,27 @@ import { BaseApi } from "../api/BaseApi";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ModalDetail from "../components/ModalDetail";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function SearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [results, setResults] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (query) {
       const fetchSearchResults = async () => {
+        setLoading(true);
         try {
           const res = await BaseApi.get(`/search/multi?query=${query}`);
           setResults(res.data.results);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
         } catch (error) {
+          setLoading(false);
           console.error(error);
         }
       };
@@ -37,7 +44,23 @@ export default function SearchPage() {
           Search Results for: <span className="text-red-500">"{query}"</span>
         </h1>
 
-        {results.length > 0 ? (
+        {loading && (
+          <div className="flex flex-col justify-center items-center ">
+            <MagnifyingGlass
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="magnifying-glass-loading"
+              wrapperStyle={{}}
+              wrapperClass="magnifying-glass-wrapper"
+              glassColor="#c0efff"
+              color="#e15b64"
+            />
+            <p className="ml-2">Loading...</p>
+          </div>
+        )}
+
+        {!loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {results.map((item) =>
               item.poster_path ? (
@@ -56,8 +79,9 @@ export default function SearchPage() {
               ) : null
             )}
           </div>
-        ) : (
-          <p>No results found.</p>
+        ) : null}
+        {results.length === 0 && !loading && (
+          <p className="text-gray-400 mt-8">No results found.</p>
         )}
       </main>
       <Footer />

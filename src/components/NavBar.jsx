@@ -19,35 +19,15 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   const dataNavBar = [
-    {
-      id: 1,
-      name: "Home",
-      path: "/",
-    },
-    {
-      id: 2,
-      name: "TV Shows",
-      path: "/tv-shows",
-    },
-    {
-      id: 3,
-      name: "Movies",
-      path: "/movies",
-    },
-    {
-      id: 4,
-      name: "My List",
-      path: "/my-list",
-    },
+    { id: 1, name: "Home", path: "/" },
+    { id: 2, name: "TV Shows", path: "/tv-shows" },
+    { id: 3, name: "Movies", path: "/movies" },
+    { id: 4, name: "My List", path: "/my-list" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
+      setScrolling(window.scrollY > 0);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -68,19 +48,23 @@ export default function NavBar() {
     <div
       className={`flex justify-between px-6 md:px-8 lg:px-14 py-4 items-center fixed top-0 left-0 right-0 z-20 ${
         scrolling ? "bg-black" : "bg-transparent"
-      } transition-all duration-300 delay-200`}
+      } transition-all duration-300`}
     >
       <div className="flex gap-4 md:gap-12 items-center">
         <img
           src={logo}
           alt="logo"
-          className="w-16 md:w-30 lg:w-34 object-contain"
+          className="w-16 md:w-20 lg:w-24 object-contain"
         />
 
         <nav className="hidden md:block">
           <ul className="flex gap-4">
             {dataNavBar.map((item) => (
-              <Link to={item.path} key={item.id} className="text-white">
+              <Link
+                to={item.path}
+                key={item.id}
+                className="text-white hover:text-gray-300 transition"
+              >
                 {item.name}
               </Link>
             ))}
@@ -97,11 +81,16 @@ export default function NavBar() {
 
         {/* Dropdown Menu mobile */}
         {showMenu && (
-          <div className="absolute top-15 left-50 rounded-2xl w-1/3 bg-black/90 text-white md:hidden">
+          <div className="absolute top-16 left-1/2 transform -translate-x-1/2 rounded-2xl w-1/2 bg-black/90 text-white md:hidden">
             <ul className="flex flex-col p-4">
               {dataNavBar.map((item) => (
                 <li key={item.id} className="py-2">
-                  {item.name}
+                  <Link
+                    to={item.path}
+                    className="hover:text-gray-300 transition"
+                  >
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -110,7 +99,7 @@ export default function NavBar() {
       </div>
 
       <div className="relative transition-all duration-300">
-        {showSearchBar ? (
+        {showSearchBar && (
           <input
             type="text"
             value={searchInput}
@@ -120,7 +109,7 @@ export default function NavBar() {
             autoFocus
             className="w-32 md:w-48 lg:w-60 px-3 py-1 rounded-full bg-white/10 text-white placeholder-gray-300 outline-none border border-white/20 focus:border-white focus:bg-white/20 transition-all duration-300"
           />
-        ) : null}
+        )}
       </div>
 
       <div className="flex gap-4 md:gap-8 items-center">
@@ -128,7 +117,6 @@ export default function NavBar() {
           onClick={() => setShowSearchBar(!showSearchBar)}
           className="text-lg md:text-2xl text-white cursor-pointer"
         />
-        {/* <FaRegBell className="text-2xl text-white" /> */}
         <Link to="/my-list">
           <FaRegHeart className="text-lg md:text-2xl text-white" />
         </Link>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import MovieCard from "../components/MovieCard/MovieCard";
 import { BaseApi } from "../api/BaseApi";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -36,7 +35,7 @@ export default function SearchPage() {
   // console.log(results);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-slate-900">
       <NavBar />
 
       <main className="flex-1 pt-28 px-6 md:px-14 text-white">

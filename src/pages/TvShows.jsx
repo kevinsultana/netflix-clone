@@ -27,7 +27,7 @@ export default function TvShows() {
   // }, []);
 
   return (
-    <div className="relative bg-slate-950">
+    <div className="relative bg-slate-900">
       <NavBar />
       <Hero
         // data={trendingTvShow}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Hero from "../components/Hero";
 import MovieList from "../components/MovieList";
@@ -8,7 +8,6 @@ import { BaseApi } from "../api/BaseApi";
 
 import { DataMovie } from "../constants/DataMovie";
 
-import hero from "../assets/hero/hero.png";
 import ModalDetail from "../components/ModalDetail";
 
 export default function Home() {
@@ -65,43 +64,36 @@ export default function Home() {
     }
   };
 
-  // useEffect(() => {
-  //   getTrendingToday();
-  //   getTopTenMovies();
-  //   getTrendingAll();
-  //   getTopTenTvShows();
-  // }, []);
+  useEffect(() => {
+    getTrendingToday();
+    getTopTenMovies();
+    getTrendingAll();
+    getTopTenTvShows();
+  }, []);
 
   return (
-    <div className="relative bg-slate-950">
+    <div className="relative bg-slate-900">
       <NavBar />
-      <Hero
-        // data={trendingThisWeek}
-        data={initData}
-      />
+      <Hero data={trendingThisWeek ? trendingThisWeek : initData} />
       <div className="relative pt-[17rem] md:pt-[42rem] xl:pt-[55rem]">
         <MovieList
           title={"Trending Today"}
-          // data={trendingToday}
-          data={DataMovie.results}
+          data={trendingToday ? trendingToday : DataMovie.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
         <TrendingList
           title={"Top 10 Movies"}
-          // data={topTenMovies}
-          data={DataMovie.results}
+          data={topTenMovies ? topTenMovies : DataMovie.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
         <MovieList
           title={"Trending This Week"}
-          // data={trendingThisWeek}
-          data={DataMovie.results}
+          data={trendingThisWeek ? trendingThisWeek : DataMovie.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
         <TrendingList
           title={"Top 10 Tv Shows"}
-          // data={topTenTvShows}
-          data={DataMovie.results}
+          data={topTenTvShows ? topTenTvShows : DataMovie.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
         <Footer />

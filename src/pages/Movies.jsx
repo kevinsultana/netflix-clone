@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
@@ -22,22 +22,18 @@ export default function Movies() {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   getTrendingMovie();
-  // }, []);
+  useEffect(() => {
+    getTrendingMovie();
+  }, []);
 
   return (
-    <div className="relative bg-slate-950">
+    <div className="relative bg-slate-900">
       <NavBar />
-      <Hero
-        // data={trendingTvShow}
-        data={DataMovie.results}
-      />
+      <Hero data={trendingMovie ? trendingMovie : DataMovie.results} />
       <div className="relative pt-[17rem] md:pt-[42rem] xl:pt-[55rem]">
         <TrendingList
           title="Trending Tv Shows"
-          // data={trendingTvShow}
-          data={DataMovie.results}
+          data={trendingMovie ? trendingMovie : DataMovie.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
         <MovieListByGenre onClick={(movie) => setSelectedMovie(movie)} />

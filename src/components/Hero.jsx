@@ -19,7 +19,7 @@ export default function Hero({ data }) {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60"></div>
       </div>
       {/* hero text title */}
-      <div className="absolute z-10 px-6 max-w-2xs md:max-w-2xl sm:px-12 md:px-14 lg:px-16 mt-20 sm:mt-32 md:mt-56  ">
+      <div className="absolute z-10 px-6 max-w-xs md:max-w-2xl sm:px-12 md:px-14 lg:px-16 mt-20 sm:mt-32 md:mt-56  ">
         <div className="flex gap-4 items-center">
           <img
             src={logoGlitch}
@@ -35,7 +35,7 @@ export default function Hero({ data }) {
           {heroData?.title || heroData?.original_title || heroData?.name}
         </h1>
 
-        <p className="text-white my-2 sm:my-6 text-xs sm:text-lg md:text-xl max-h-34 overflow-hidden">
+        <p className="text-white my-2 sm:my-6 text-xs  md:text-xl max-h-20 overflow-hidden">
           {heroData?.overview}
         </p>
 

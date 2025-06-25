@@ -35,6 +35,9 @@ export default function SearchPage() {
       console.error(error);
     }
   };
+  useEffect(() => {
+    setMediaType("movie");
+  }, []);
 
   useEffect(() => {
     if (query) {
@@ -61,17 +64,23 @@ export default function SearchPage() {
           </h1>
           <div>
             <label for="media_type" className="mr-2 text-xl">
-              search by:
+              Search By:
             </label>
             <select
+              className="text-white text-xl border border-white/20 rounded-md px-2 py-1"
               name="media_type"
               id="media_type"
               onChange={() =>
                 setMediaType(document.getElementById("media_type").value)
               }
+              value={mediaType}
             >
-              <option value="movie">Movies</option>
-              <option value="tv">TV Shows</option>
+              <option value="movie" className="text-black text-lg ">
+                Movies
+              </option>
+              <option value="tv" className="text-black text-lg ">
+                TV Shows
+              </option>
             </select>
           </div>
         </div>
@@ -101,7 +110,7 @@ export default function SearchPage() {
                 onClick={() => setSelectedMovie(item)}
               >
                 <img
-                  src={`https://image.tmdb.org/t/p/w500${
+                  src={`https://image.tmdb.org/t/p/w780${
                     item.poster_path || item.backdrop_path
                   }`}
                   alt={item.title}

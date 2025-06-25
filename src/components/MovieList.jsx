@@ -7,9 +7,9 @@ export default function MovieList({ title, data, onClick }) {
 
   const scroll = (direction) => {
     if (direction === "left") {
-      scrollRef.current.scrollBy({ left: -480, behavior: "smooth" });
+      scrollRef.current.scrollBy({ left: -380, behavior: "smooth" });
     } else {
-      scrollRef.current.scrollBy({ left: 480, behavior: "smooth" });
+      scrollRef.current.scrollBy({ left: 380, behavior: "smooth" });
     }
   };
 
@@ -19,7 +19,7 @@ export default function MovieList({ title, data, onClick }) {
 
       <button
         onClick={() => scroll("left")}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 hidden group-hover:flex bg-black/60 p-2 rounded-full transition-all duration-300"
+        className="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 z-10 hidden group-hover:flex bg-black/60 p-2 rounded-full transition-all duration-300"
       >
         <FaChevronLeft size={20} />
       </button>
@@ -39,7 +39,7 @@ export default function MovieList({ title, data, onClick }) {
 
       <button
         onClick={() => scroll("right")}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 hidden group-hover:flex bg-black/60 p-2 rounded-full transition-all duration-300"
+        className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 z-10 hidden group-hover:flex bg-black/60 p-2 rounded-full transition-all duration-300"
       >
         <FaChevronRight size={20} />
       </button>

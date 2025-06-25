@@ -11,7 +11,7 @@ export default function FavoriteList() {
   }, [selectedMovie]);
 
   return (
-    <div className="text-white px-6 sm:px-12 md:px-14 lg:px-16 min-h-screen">
+    <div className="text-white px-6 sm:px-12 md:px-14 lg:px-16 min-h-115">
       <h1 className="font-bold text-lg md:text-4xl mb-4">
         My List Movies and TV Shows
       </h1>

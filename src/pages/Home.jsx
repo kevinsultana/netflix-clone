@@ -75,7 +75,7 @@ export default function Home() {
     <div className="relative bg-slate-900">
       <NavBar />
       <Hero data={trendingThisWeek ? trendingThisWeek : initData} />
-      <div className="relative pt-[17rem] md:pt-[42rem] xl:pt-[55rem]">
+      <div className="relative pt-[17rem] md:pt-[30rem] xl:pt-[40rem] 2xl:pt-[55rem]">
         <MovieList
           title={"Trending Today"}
           data={trendingToday ? trendingToday : DataMovie.results}

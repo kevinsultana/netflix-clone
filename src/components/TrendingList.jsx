@@ -8,15 +8,15 @@ export default function TrendingList({ title, data, onClick }) {
 
   const scroll = (direction) => {
     if (direction === "left") {
-      scrollRef.current.scrollBy({ left: -480, behavior: "smooth" });
+      scrollRef.current.scrollBy({ left: -380, behavior: "smooth" });
     } else {
-      scrollRef.current.scrollBy({ left: 480, behavior: "smooth" });
+      scrollRef.current.scrollBy({ left: 380, behavior: "smooth" });
     }
   };
 
   return (
-    <div className="text-white relative pl-6 md:pl-14 pb-6 group">
-      <h1 className="font-bold text-lg md:text-4xl mb-4">{title}</h1>
+    <div className="text-white relative pl-6 md:pl-14 group">
+      <h1 className="font-bold text-lg md:text-4xl ">{title}</h1>
 
       {/* Tombol kiri */}
       <button
@@ -26,13 +26,13 @@ export default function TrendingList({ title, data, onClick }) {
         <FaChevronLeft size={20} />
       </button>
 
-      <div className="overflow-x-hidden">
+      <div className="overflow-x-hidden ">
         <div
           ref={scrollRef}
-          className="flex gap-6 p-3 transition-all duration-300 scroll-smooth overflow-x-auto scrollbar-hide"
+          className="flex gap-2 md:gap-6 py-2 md:py-4 transition-all duration-300 scroll-smooth overflow-y-hidden scrollbar-hide"
         >
           {data?.slice(1, 11).map((item, index) => (
-            <div key={item.id} className="">
+            <div key={item.id}>
               <TrendingCard data={item} index={index} onClick={onClick} />
             </div>
           ))}

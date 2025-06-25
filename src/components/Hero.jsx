@@ -19,28 +19,28 @@ export default function Hero({ data }) {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60"></div>
       </div>
       {/* hero text title */}
-      <div className="absolute z-10 px-6 max-w-xs md:max-w-2xl sm:px-12 md:px-14 lg:px-16 mt-20 sm:mt-32 md:mt-56  ">
+      <div className="absolute z-10 px-6 max-w-xs md:max-w-lg sm:px-12 md:px-14 lg:px-16 mt-20 sm:mt-32 lg:mt-56  ">
         <div className="flex gap-4 items-center">
           <img
             src={logoGlitch}
             alt="logo-glitch"
-            className="w-4 md:w-14 lg:w-24"
+            className="w-4 md:w-10 lg:w-24"
           />
-          <p className="text-white uppercase font-bold text-xs md:text-xl lg:text-3xl">
+          <p className="text-white uppercase font-bold text-xs md:text-lg lg:text-3xl">
             {heroData?.media_type === "movie" ? "m o v i e s" : "s e r i e s"}
           </p>
         </div>
 
-        <h1 className="text-white text-md sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase">
+        <h1 className="text-white text-md sm:text-3xl md:text-4xl lg:text-7xl font-bold uppercase">
           {heroData?.title || heroData?.original_title || heroData?.name}
         </h1>
 
-        <p className="text-white my-2 sm:my-6 text-xs  md:text-xl max-h-20 overflow-hidden">
+        <p className="text-white my-2 sm:my-6 text-xs md:text-base max-h-19 overflow-hidden">
           {heroData?.overview}
         </p>
 
-        <div className="flex gap-4">
-          <button className="bg-white text-xs text-black py-2 px-6 md:px-8 flex gap-2 items-center rounded-xl">
+        <div className="flex gap-4 pt-2 sm:pt-0">
+          <button className="bg-white text-xs text-black py-1 px-6 md:px-8 flex gap-2 items-center rounded-xl">
             <FaPlay />
             <span className="hidden sm:inline">Play</span>
           </button>

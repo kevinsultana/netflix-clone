@@ -8,7 +8,7 @@ export default function MovieCard({ data, onClick }) {
   return (
     <div
       onClick={() => onClick(data)}
-      className="w-40 md:w-60 cursor-pointer hover:scale-105 transition-all duration-300"
+      className="w-40 md:w-70 cursor-pointer hover:scale-105 transition-all duration-300"
     >
       <div className="relative h-32 md:h-36 rounded-xl overflow-hidden">
         <img
@@ -27,11 +27,11 @@ export default function MovieCard({ data, onClick }) {
       <div className="mt-2">
         <div className="flex items-center gap-2">
           <FaStar className="text-yellow-400 text-lg" />
-          <p className="text-xs md:text-sm text-white">
+          <p className="text-xs md:text-base text-white">
             {vote_average.toFixed(1)}
           </p>
         </div>
-        <h1 className="text-xs md:text-sm mt-2 text-white font-semibold px-1 line-clamp-2">
+        <h1 className="text-xs md:text-base mt-2 text-white font-semibold px-1 line-clamp-2">
           {title || name}
         </h1>
       </div>

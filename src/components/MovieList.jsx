@@ -27,7 +27,7 @@ export default function MovieList({ title, data, onClick }) {
       <div className="overflow-x-hidden">
         <div
           ref={scrollRef}
-          className="flex gap-2 p-3 transition-all duration-300 scroll-smooth overflow-x-auto scrollbar-hide"
+          className="flex gap-6 p-3 transition-all duration-300 scroll-smooth overflow-x-auto scrollbar-hide"
         >
           {data.map((item) => (
             <div key={item.id} className="flex-shrink-0">

@@ -22,22 +22,18 @@ export default function TvShows() {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   getTrendingTvShow();
-  // }, []);
+  useEffect(() => {
+    getTrendingTvShow();
+  }, []);
 
   return (
     <div className="relative bg-slate-900">
       <NavBar />
-      <Hero
-        // data={trendingTvShow}
-        data={DataTvShow.results}
-      />
+      <Hero data={trendingTvShow ? trendingTvShow : DataTvShow.results} />
       <div className="relative pt-[17rem] md:pt-[42rem] xl:pt-[55rem]">
         <TrendingList
           title="Trending Tv Shows"
-          // data={trendingTvShow}
-          data={DataTvShow.results}
+          data={trendingTvShow ? trendingTvShow : DataTvShow.results}
           onClick={(movie) => setSelectedMovie(movie)}
         />
         <TvShowListByGenre onClick={(movie) => setSelectedMovie(movie)} />

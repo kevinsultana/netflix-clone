@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TvShowGenre } from "../constants/TvShowGenre";
 import { BaseApi } from "../api/BaseApi";
 import logoGlitch from "../assets/logoGlitch.png";
@@ -10,6 +10,8 @@ export default function TvShowListByGenre({ onClick }) {
   const [selectedGenre, setSelectedGenre] = useState({});
   const [dataByGenre, setDataByGenre] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(null);
   //   console.log(dataByGenre);
 
   const handleSearchChange = (e) => {
@@ -28,9 +30,12 @@ export default function TvShowListByGenre({ onClick }) {
     const id = genre.id;
     try {
       const response = await BaseApi.get(
-        `/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`
+        `/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${id}`
       );
       const result = response.data.results;
+      const totalPages = response.data.total_pages;
+      console.log(response.data.page);
+      setMaxPage(totalPages);
       setDataByGenre(result);
       setTimeout(() => {
         setLoading(false);
@@ -40,6 +45,16 @@ export default function TvShowListByGenre({ onClick }) {
       console.log(error);
     }
   };
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1) return;
+    setPage(newPage);
+    handleSubmitGenre(selectedGenre);
+  };
+
+  // useEffect(() => {
+  //   handleSubmitGenre(selectedGenre);
+  // }, [page]);
 
   return (
     <div className="text-white relative pl-6 md:pl-14 pb-14 group">
@@ -123,6 +138,27 @@ export default function TvShowListByGenre({ onClick }) {
               </div>
             ))}
           </div>
+          {dataByGenre.length > 0 && (
+            <div className="flex items-center justify-center gap-4 mt-12">
+              <button
+                onClick={() => handlePageChange(page - 1)}
+                className="bg-gray-600 px-4 py-2 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={page === 1}
+              >
+                Prev Page
+              </button>
+              <h1 className="text-4xl">
+                {page}/{maxPage}
+              </h1>
+              <button
+                onClick={() => handlePageChange(page + 1)}
+                className="bg-gray-600 px-4 py-2 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={page === maxPage}
+              >
+                Next Page
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

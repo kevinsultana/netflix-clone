@@ -56,13 +56,13 @@ export default function MovieListByGenre({ onClick }) {
   return (
     <div className="text-white relative pl-6 md:pl-14 pb-14 group">
       <div className="mb-6 flex items-center gap-4 justify-center">
-        <h1 className="text-4xl font-bold mb-2">Movie Genre</h1>
+        <h1 className="text-lg md:text-4xl font-bold mb-2">Movie Genre</h1>
         <input
           type="text"
           value={search}
           onChange={handleSearchChange}
           placeholder="Search genre..."
-          className="p-2 text-2xl rounded bg-gray-800 text-white outline-none w-1/6 max-w-md"
+          className="p-2 text-lg md:text-2xl rounded bg-gray-800 text-white outline-none w-1/2 md:w-1/6 max-w-md"
         />
       </div>
 
@@ -70,7 +70,7 @@ export default function MovieListByGenre({ onClick }) {
         className={
           filteredGenres.length < 8
             ? "flex justify-center flex-wrap gap-4"
-            : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pr-6"
+            : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4 pr-4 md:pr-6"
         }
       >
         {filteredGenres.length > 0 ? (
@@ -80,8 +80,8 @@ export default function MovieListByGenre({ onClick }) {
               key={genre.id}
               className={
                 selectedGenre.name === genre.name
-                  ? "p-3 text-xl bg-gray-600 rounded cursor-pointer"
-                  : "p-3 text-xl bg-gray-800 rounded hover:bg-gray-600 cursor-pointer"
+                  ? "p-2 text-xs md:text-lg bg-gray-600 rounded cursor-pointer"
+                  : "p-2 text-xs md:text-lg bg-gray-700 rounded hover:bg-gray-600 cursor-pointer"
               }
             >
               {genre.name}
@@ -111,21 +111,21 @@ export default function MovieListByGenre({ onClick }) {
       ) : (
         <div className="my-6">
           {selectedGenre.name && (
-            <h1 className="text-4xl font-bold mb-2">
+            <h1 className="text-xl md:text-4xl font-bold md:mb-2">
               {selectedGenre.name} Movies
             </h1>
           )}
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pr-6">
+          <div className="mt-2 md:mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pr-6">
             {dataByGenre.map((movie) => (
               <div
                 onClick={() => onClick(movie)}
                 key={movie.id}
-                className="p-3 text-xl hover:scale-110 cursor-pointer transition-all duration-300"
+                className="m-1 md:p-3 text-xl hover:scale-110 cursor-pointer transition-all duration-300"
               >
                 <img
                   src={logoGlitch}
                   alt="logo-glitch"
-                  className="absolute w-8 mt-2 ml-2"
+                  className="absolute w-6 md:w-8 mt-2 ml-2"
                 />
                 <img
                   src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}

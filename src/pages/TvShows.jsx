@@ -30,7 +30,7 @@ export default function TvShows() {
     <div className="relative bg-slate-900">
       <NavBar />
       <Hero data={trendingTvShow ? trendingTvShow : DataTvShow.results} />
-      <div className="relative pt-[17rem] md:pt-[42rem] xl:pt-[55rem]">
+      <div className="relative pt-[17rem] md:pt-[30rem] xl:pt-[40rem] 2xl:pt-[55rem]">
         <TrendingList
           title="Trending Tv Shows"
           data={trendingTvShow ? trendingTvShow : DataTvShow.results}

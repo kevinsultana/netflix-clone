@@ -77,7 +77,7 @@ export default function ModalDetail({ movie, onClose, media_type }) {
 
   return (
     <div className="fixed inset-0 z-40 bg-black/80 flex items-center justify-center px-4">
-      <div className="bg-gray-900 text-white rounded-lg w-full max-w-3xl overflow-hidden shadow-lg relative p-8">
+      <div className="bg-gray-900 text-white rounded-lg w-full md:max-w-3xl overflow-hidden shadow-lg relative p-2 md:p-8">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full text-2xl z-50 cursor-pointer"
@@ -90,7 +90,7 @@ export default function ModalDetail({ movie, onClose, media_type }) {
             src={`https://www.youtube.com/embed/${videoKey}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-full h-100"
+            className="w-full h-52 md:h-100"
           ></iframe>
         )}
         {videoKey === null && (
@@ -99,13 +99,13 @@ export default function ModalDetail({ movie, onClose, media_type }) {
               backdrop_path ? backdrop_path : poster_path
             }`}
             alt={title || name}
-            className="w-full h-100 object-contain"
+            className="w-full h-52 md:h-100 object-contain"
           />
         )}
 
-        <div className="p-6 space-y-4">
+        <div className="p-4 space-x-2 md:p-6 md:space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">{title || name}</h2>
+            <h2 className="text-xl md:text-2xl font-bold">{title || name}</h2>
             <button
               onClick={handleFavorite}
               className={`p-2 rounded-full ${
@@ -119,21 +119,21 @@ export default function ModalDetail({ movie, onClose, media_type }) {
               />
             </button>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center mb-2 md:mb-4">
             <FaStar className="text-yellow-400 text-lg" />
-            <p className="text-sm text-gray-300 ml-2">
+            <p className="text-sm md:text-base text-gray-300 ml-2">
               {vote_average.toFixed(1)}
             </p>
           </div>
           {getGenreNames(genre_ids).map((genre, index) => (
             <span
               key={index}
-              className="text-sm text-gray-800 mr-2 bg-slate-200 py-1 px-2 rounded-full"
+              className="text-sm md:text-base text-gray-800 mr-2 bg-slate-200 py-1 px-2 rounded-full"
             >
               {genre}
             </span>
           ))}
-          <p className="text-base text-gray-300 mt-4">{overview}</p>
+          <p className="text-base md:text-lg text-gray-300 mt-4">{overview}</p>
         </div>
       </div>
     </div>

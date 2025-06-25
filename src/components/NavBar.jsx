@@ -1,7 +1,6 @@
 import {
   FaMagnifyingGlass,
   FaChevronDown,
-  FaRegBell,
   FaRegHeart,
   FaBars,
 } from "react-icons/fa6";

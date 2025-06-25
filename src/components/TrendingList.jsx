@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import TrendingCard from "./TrendingCard/TrendingCard";
-import { DataPopular } from "../constants/DataPopular";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 export default function TrendingList({ title, data, onClick }) {

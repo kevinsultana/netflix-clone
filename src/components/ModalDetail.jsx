@@ -41,7 +41,6 @@ export default function ModalDetail({ movie, onClose, media_type }) {
       if (trailer.length > 0) {
         setVideoKey(trailer[0].key);
       }
-      // console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }

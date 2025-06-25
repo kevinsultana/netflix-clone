@@ -45,7 +45,6 @@ export default function SearchPage() {
     }
   }, [query, mediaType, page]);
 
-  // console.log(results);
   const handlePageChange = (newPage) => {
     if (newPage < 1) return;
     if (newPage > maxPage) return;

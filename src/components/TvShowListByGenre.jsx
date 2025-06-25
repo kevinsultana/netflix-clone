@@ -23,10 +23,11 @@ export default function TvShowListByGenre({ onClick }) {
     setFilteredGenres(filtered);
   };
 
-  const handleSubmitGenre = async (genre) => {
+  const handleSubmitGenre = async (genre, page) => {
     setLoading(true);
     setDataByGenre([]);
     setSelectedGenre(genre);
+    setPage(page);
     const id = genre.id;
     try {
       const response = await BaseApi.get(
@@ -49,12 +50,8 @@ export default function TvShowListByGenre({ onClick }) {
   const handlePageChange = (newPage) => {
     if (newPage < 1) return;
     setPage(newPage);
-    handleSubmitGenre(selectedGenre);
+    handleSubmitGenre(selectedGenre, newPage);
   };
-
-  // useEffect(() => {
-  //   handleSubmitGenre(selectedGenre);
-  // }, [page]);
 
   return (
     <div className="text-white relative pl-6 md:pl-14 pb-14 group">
@@ -79,7 +76,7 @@ export default function TvShowListByGenre({ onClick }) {
         {filteredGenres.length > 0 ? (
           filteredGenres.map((genre) => (
             <div
-              onClick={() => handleSubmitGenre(genre)}
+              onClick={() => handleSubmitGenre(genre, 1)}
               key={genre.id}
               className={
                 selectedGenre.name === genre.name
@@ -139,7 +136,7 @@ export default function TvShowListByGenre({ onClick }) {
             ))}
           </div>
           {dataByGenre.length > 0 && (
-            <div className="flex items-center justify-center gap-4 mt-12">
+            <div className="flex items-center justify-center gap-8 mt-12">
               <button
                 onClick={() => handlePageChange(page - 1)}
                 className="bg-gray-600 px-4 py-2 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
@@ -147,8 +144,8 @@ export default function TvShowListByGenre({ onClick }) {
               >
                 Prev Page
               </button>
-              <h1 className="text-4xl">
-                {page}/{maxPage}
+              <h1 className="text-2xl">
+                {page} / {maxPage}
               </h1>
               <button
                 onClick={() => handlePageChange(page + 1)}

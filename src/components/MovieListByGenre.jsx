@@ -115,7 +115,7 @@ export default function MovieListByGenre({ onClick }) {
               {selectedGenre.name} Movies
             </h1>
           )}
-          <div className="mt-2 md:mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pr-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {dataByGenre.map((movie) => (
               <div
                 onClick={() => onClick(movie)}
@@ -132,7 +132,7 @@ export default function MovieListByGenre({ onClick }) {
                   alt={movie.title || movie.name}
                   className="w-full h-full  object-cover rounded-xl"
                 />
-                <h1 className="relative bottom-7 pl-2 text-white bg-black/40 text-lg z-10">
+                <h1 className="relative bottom-6 md:bottom-7 pl-2 bg-black/40 text-base md:text-lg text-white">
                   {movie.title || movie.name}
                 </h1>
               </div>

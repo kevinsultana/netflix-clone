@@ -16,8 +16,8 @@ export default function PaginationController({
       >
         <FaChevronLeft className="text-base md:text-xl" />
       </button>
-      <h1 className="text-2xl">
-        {page} / {maxPage}
+      <h1 className="text-lg md:text-2xl">
+        Page {page} of {maxPage}
       </h1>
       <button
         onClick={onClickNext}

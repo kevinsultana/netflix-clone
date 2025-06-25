@@ -59,15 +59,15 @@ export default function SearchPage() {
 
       <main className="flex-1 pt-28 px-6 md:px-14 text-white">
         <div className="flex items-center gap-8 mb-6">
-          <h1 className="text-2xl font-bold ">
+          <h1 className="text-base md:text-2xl font-bold ">
             Search Results for: <span className="text-red-500">"{query}"</span>
           </h1>
           <div>
-            <label for="media_type" className="mr-2 text-xl">
+            <label for="media_type" className="mr-2 text-base md:text-xl">
               Search By:
             </label>
             <select
-              className="text-white text-xl border border-white/20 rounded-md px-2 py-1"
+              className="text-white text-base md:text-xl border border-white/20 rounded-md px-2 py-1"
               name="media_type"
               id="media_type"
               onChange={() =>
@@ -75,10 +75,13 @@ export default function SearchPage() {
               }
               value={mediaType}
             >
-              <option value="movie" className="text-black text-lg ">
+              <option
+                value="movie"
+                className="text-black text-base md:text-lg "
+              >
                 Movies
               </option>
-              <option value="tv" className="text-black text-lg ">
+              <option value="tv" className="text-black text-base md:text-lg ">
                 TV Shows
               </option>
             </select>
@@ -114,9 +117,11 @@ export default function SearchPage() {
                     item.poster_path || item.backdrop_path
                   }`}
                   alt={item.title}
-                  className="w-full h-90 object-cover mb-2"
+                  className="w-full md:h-auto object-cover mb-2"
                 />
-                <h2>{item.title || item.name}</h2>
+                <h2 className="text-sm md:text-lg">
+                  {item.title || item.name}
+                </h2>
               </div>
             ))}
           </div>

@@ -7,7 +7,7 @@ export default function Mylist() {
     <div className="relative bg-slate-900">
       <NavBar />
       {/* <Hero /> */}
-      <div className="relative pt-[6rem]">
+      <div className="relative pt-[4rem] md:pt-[6rem]">
         <FavoriteList />
         <Footer />
       </div>

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { TvShowGenre } from "../constants/TvShowGenre";
 import { BaseApi } from "../api/BaseApi";
 import logoGlitch from "../assets/logoGlitch.png";
 import { MagnifyingGlass } from "react-loader-spinner";
+import PaginationController from "./PaginationController";
 
 export default function TvShowListByGenre({ onClick }) {
   const [search, setSearch] = useState("");
@@ -12,7 +13,6 @@ export default function TvShowListByGenre({ onClick }) {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(null);
-  //   console.log(dataByGenre);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -49,6 +49,7 @@ export default function TvShowListByGenre({ onClick }) {
 
   const handlePageChange = (newPage) => {
     if (newPage < 1) return;
+    if (newPage > maxPage) return;
     setPage(newPage);
     handleSubmitGenre(selectedGenre, newPage);
   };
@@ -136,25 +137,12 @@ export default function TvShowListByGenre({ onClick }) {
             ))}
           </div>
           {dataByGenre.length > 0 && (
-            <div className="flex items-center justify-center gap-8 mt-12">
-              <button
-                onClick={() => handlePageChange(page - 1)}
-                className="bg-gray-600 px-4 py-2 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={page === 1}
-              >
-                Prev Page
-              </button>
-              <h1 className="text-2xl">
-                {page} / {maxPage}
-              </h1>
-              <button
-                onClick={() => handlePageChange(page + 1)}
-                className="bg-gray-600 px-4 py-2 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={page === maxPage}
-              >
-                Next Page
-              </button>
-            </div>
+            <PaginationController
+              maxPage={maxPage}
+              page={page}
+              onClickPrev={() => handlePageChange(page - 1)}
+              onClickNext={() => handlePageChange(page + 1)}
+            />
           )}
         </div>
       )}

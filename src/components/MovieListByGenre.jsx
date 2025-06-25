@@ -3,6 +3,7 @@ import { MovieGenre } from "../constants/MovieGenre";
 import { BaseApi } from "../api/BaseApi";
 import logoGlitch from "../assets/logoGlitch.png";
 import { MagnifyingGlass } from "react-loader-spinner";
+import PaginationController from "./PaginationController";
 
 export default function MovieListByGenre({ onClick }) {
   const [search, setSearch] = useState("");
@@ -10,7 +11,8 @@ export default function MovieListByGenre({ onClick }) {
   const [selectedGenre, setSelectedGenre] = useState({});
   const [dataByGenre, setDataByGenre] = useState([]);
   const [loading, setLoading] = useState(false);
-  // console.log(dataByGenre);
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(null);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -21,16 +23,19 @@ export default function MovieListByGenre({ onClick }) {
     setFilteredGenres(filtered);
   };
 
-  const handleSubmitGenre = async (genre) => {
+  const handleSubmitGenre = async (genre, page) => {
     setLoading(true);
     setDataByGenre([]);
     setSelectedGenre(genre);
+    setPage(page);
     const id = genre.id;
     try {
       const response = await BaseApi.get(
-        `/discover/movie?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`
+        `/discover/movie?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${id}`
       );
       const result = response.data.results;
+      const totalPages = response.data.total_pages;
+      setMaxPage(totalPages);
       setDataByGenre(result);
       setTimeout(() => {
         setLoading(false);
@@ -39,6 +44,13 @@ export default function MovieListByGenre({ onClick }) {
       setLoading(false);
       console.log(error);
     }
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1) return;
+    if (newPage > maxPage) return;
+    setPage(newPage);
+    handleSubmitGenre(selectedGenre, newPage);
   };
 
   return (
@@ -64,7 +76,7 @@ export default function MovieListByGenre({ onClick }) {
         {filteredGenres.length > 0 ? (
           filteredGenres.map((genre) => (
             <div
-              onClick={() => handleSubmitGenre(genre)}
+              onClick={() => handleSubmitGenre(genre, 1)}
               key={genre.id}
               className={
                 selectedGenre.name === genre.name
@@ -82,16 +94,19 @@ export default function MovieListByGenre({ onClick }) {
 
       {loading ? (
         <div className="flex justify-center mt-12">
-          <MagnifyingGlass
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="magnifying-glass-loading"
-            wrapperStyle={{}}
-            wrapperClass="magnifying-glass-wrapper"
-            glassColor="#c0efff"
-            color="#e15b64"
-          />
+          <div className="flex flex-col items-center">
+            <MagnifyingGlass
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="magnifying-glass-loading"
+              wrapperStyle={{}}
+              wrapperClass="magnifying-glass-wrapper"
+              glassColor="#c0efff"
+              color="#e15b64"
+            />
+            <p>Loading...</p>
+          </div>
         </div>
       ) : (
         <div className="my-6">
@@ -123,6 +138,14 @@ export default function MovieListByGenre({ onClick }) {
               </div>
             ))}
           </div>
+          {dataByGenre.length > 0 && (
+            <PaginationController
+              maxPage={maxPage}
+              page={page}
+              onClickPrev={() => handlePageChange(page - 1)}
+              onClickNext={() => handlePageChange(page + 1)}
+            />
+          )}
         </div>
       )}
     </div>

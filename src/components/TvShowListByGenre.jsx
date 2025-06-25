@@ -35,7 +35,6 @@ export default function TvShowListByGenre({ onClick }) {
       );
       const result = response.data.results;
       const totalPages = response.data.total_pages;
-      console.log(response.data.page);
       setMaxPage(totalPages);
       setDataByGenre(result);
       setTimeout(() => {
@@ -127,11 +126,11 @@ export default function TvShowListByGenre({ onClick }) {
                 />
                 <img
                   src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
-                  alt={movie.name}
+                  alt={movie.name || movie.title}
                   className="w-full h-full  object-cover rounded-xl"
                 />
                 <h1 className="relative bottom-7 pl-2 bg-black/40 text-lg">
-                  {movie.name}
+                  {movie.name || movie.title}
                 </h1>
               </div>
             ))}

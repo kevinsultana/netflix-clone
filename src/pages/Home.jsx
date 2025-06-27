@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Hero from "../components/Hero";
 import MovieList from "../components/MovieList";
 import TrendingList from "../components/TrendingList";
 import Footer from "../components/Footer";
-import ModalDetail from "../components/ModalDetail";
-import { useFetchMedia } from "../hooks/useFetchMedia";
+import { BaseApi } from "../api/BaseApi";
+
 import { DataMovie } from "../constants/DataMovie";
 
+import ModalDetail from "../components/ModalDetail";
+import { useFetchMedia } from "../hooks/useFetchMedia";
+
 export default function Home() {
-  const [selectedMedia, setSelectedMedia] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const initData = [
+    {
+      backdrop_path: "/uIpJPDNFoeX0TVml9smPrs9KUVx.jpg",
+      title: "The Shawshank Redemption",
+      overview:
+        "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      media_type: "movie",
+    },
+  ];
 
   const { data: trendingThisWeek } = useFetchMedia(
     "/trending/all/week?language=en-US"
@@ -24,50 +37,38 @@ export default function Home() {
     "/trending/all/day?language=en-US"
   );
 
-  const initData = [
-    {
-      backdrop_path: "/uIpJPDNFoeX0TVml9smPrs9KUVx.jpg",
-      title: "The Shawshank Redemption",
-      overview:
-        "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-      media_type: "movie",
-    },
-  ];
-
   return (
     <div className="relative bg-slate-900">
       <NavBar />
-      <Hero data={trendingThisWeek.length > 0 ? trendingThisWeek : initData} />
+      <Hero data={trendingThisWeek ? trendingThisWeek : initData} />
       <div className="relative pt-[17rem] md:pt-[30rem] xl:pt-[40rem] 2xl:pt-[55rem]">
         <MovieList
           title={"Trending Today"}
-          data={trendingToday.length > 0 ? trendingToday : DataMovie.results}
-          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
+          data={trendingToday ? trendingToday : DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <TrendingList
           title={"Top 10 Movies"}
-          data={topTenMovies.length > 0 ? topTenMovies : DataMovie.results}
-          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
+          data={topTenMovies ? topTenMovies : DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <MovieList
           title={"Trending This Week"}
-          data={
-            trendingThisWeek.length > 0 ? trendingThisWeek : DataMovie.results
-          }
-          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
+          data={trendingThisWeek ? trendingThisWeek : DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <TrendingList
           title={"Top 10 Tv Shows"}
-          data={topTenTvShows.length > 0 ? topTenTvShows : DataMovie.results}
-          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
+          data={topTenTvShows ? topTenTvShows : DataMovie.results}
+          onClick={(movie) => setSelectedMovie(movie)}
         />
         <Footer />
       </div>
-      {selectedMedia && (
+      {selectedMovie && (
         <ModalDetail
-          mediaItem={selectedMedia} // Renamed movie to mediaItem
-          onClose={() => setSelectedMedia(null)}
-          media_type={selectedMedia.media_type === "movie" ? "movie" : "tv"}
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+          media_type={selectedMovie.media_type === "movie" ? "movie" : "tv"}
         />
       )}
     </div>

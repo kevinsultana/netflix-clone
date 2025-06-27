@@ -1,22 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavBar from "../components/NavBar";
 import Hero from "../components/Hero";
 import MovieList from "../components/MovieList";
 import TrendingList from "../components/TrendingList";
 import Footer from "../components/Footer";
-import { BaseApi } from "../api/BaseApi";
-
+import ModalDetail from "../components/ModalDetail";
+import { useFetchMedia } from "../hooks/useFetchMedia";
 import { DataMovie } from "../constants/DataMovie";
 
-import ModalDetail from "../components/ModalDetail";
-
 export default function Home() {
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedMedia, setSelectedMedia] = useState(null);
 
-  const [trendingThisWeek, setTrendingThisWeek] = useState([]);
-  const [topTenMovies, setTopTenMovies] = useState([]);
-  const [topTenTvShows, setTopTenTvShows] = useState([]);
-  const [trendingToday, setTrendingToday] = useState([]);
+  const { data: trendingThisWeek } = useFetchMedia(
+    "/trending/all/week?language=en-US"
+  );
+  const { data: topTenMovies } = useFetchMedia(
+    "/trending/movie/day?language=en-US"
+  );
+  const { data: topTenTvShows } = useFetchMedia(
+    "/trending/tv/day?language=en-US"
+  );
+  const { data: trendingToday } = useFetchMedia(
+    "/trending/all/day?language=en-US"
+  );
 
   const initData = [
     {
@@ -28,81 +34,40 @@ export default function Home() {
     },
   ];
 
-  const getTrendingAll = async () => {
-    try {
-      const response = await BaseApi.get("/trending/all/week?language=en-US");
-      setTrendingThisWeek(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopTenMovies = async () => {
-    try {
-      const response = await BaseApi.get("/trending/movie/day?language=en-US");
-      setTopTenMovies(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopTenTvShows = async () => {
-    try {
-      const response = await BaseApi.get("/trending/tv/day?language=en-US");
-      setTopTenTvShows(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingToday = async () => {
-    try {
-      const resonse = await BaseApi.get("/trending/all/day?language=en-US");
-      setTrendingToday(resonse.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getTrendingToday();
-    getTopTenMovies();
-    getTrendingAll();
-    getTopTenTvShows();
-  }, []);
-
   return (
     <div className="relative bg-slate-900">
       <NavBar />
-      <Hero data={trendingThisWeek ? trendingThisWeek : initData} />
+      <Hero data={trendingThisWeek.length > 0 ? trendingThisWeek : initData} />
       <div className="relative pt-[17rem] md:pt-[30rem] xl:pt-[40rem] 2xl:pt-[55rem]">
         <MovieList
           title={"Trending Today"}
-          data={trendingToday ? trendingToday : DataMovie.results}
-          onClick={(movie) => setSelectedMovie(movie)}
+          data={trendingToday.length > 0 ? trendingToday : DataMovie.results}
+          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
         />
         <TrendingList
           title={"Top 10 Movies"}
-          data={topTenMovies ? topTenMovies : DataMovie.results}
-          onClick={(movie) => setSelectedMovie(movie)}
+          data={topTenMovies.length > 0 ? topTenMovies : DataMovie.results}
+          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
         />
         <MovieList
           title={"Trending This Week"}
-          data={trendingThisWeek ? trendingThisWeek : DataMovie.results}
-          onClick={(movie) => setSelectedMovie(movie)}
+          data={
+            trendingThisWeek.length > 0 ? trendingThisWeek : DataMovie.results
+          }
+          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
         />
         <TrendingList
           title={"Top 10 Tv Shows"}
-          data={topTenTvShows ? topTenTvShows : DataMovie.results}
-          onClick={(movie) => setSelectedMovie(movie)}
+          data={topTenTvShows.length > 0 ? topTenTvShows : DataMovie.results}
+          onClick={(item) => setSelectedMedia(item)} // Changed movie to item
         />
         <Footer />
       </div>
-      {selectedMovie && (
+      {selectedMedia && (
         <ModalDetail
-          movie={selectedMovie}
-          onClose={() => setSelectedMovie(null)}
-          media_type={selectedMovie.media_type === "movie" ? "movie" : "tv"}
+          mediaItem={selectedMedia} // Renamed movie to mediaItem
+          onClose={() => setSelectedMedia(null)}
+          media_type={selectedMedia.media_type === "movie" ? "movie" : "tv"}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "react-router";
 import { BaseApi } from "../api/BaseApi";
 import NavBar from "../components/NavBar";
@@ -11,13 +11,18 @@ export default function SearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [results, setResults] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedMedia, setSelectedMedia] = useState(null);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(null);
   const [mediaType, setMediaType] = useState("movie");
 
-  const fetchSearchResults = async () => {
+  const fetchSearchResults = useCallback(async () => {
+    if (!query) {
+      setResults([]);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
       const res = await BaseApi.get(
@@ -27,29 +32,29 @@ export default function SearchPage() {
       const totalPages = res.data.total_pages;
       setMaxPage(totalPages);
       setResults(dataResults);
+
       setTimeout(() => {
         setLoading(false);
       }, 1000);
     } catch (error) {
       setLoading(false);
       console.error(error);
-    }
-  };
-  useEffect(() => {
-    setMediaType("movie");
-  }, []);
-
-  useEffect(() => {
-    if (query) {
-      fetchSearchResults();
+      setResults([]);
     }
   }, [query, mediaType, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query, mediaType]);
+
+  useEffect(() => {
+    fetchSearchResults();
+  }, [fetchSearchResults]);
 
   const handlePageChange = (newPage) => {
     if (newPage < 1) return;
     if (newPage > maxPage) return;
     setPage(newPage);
-    fetchSearchResults();
   };
 
   return (
@@ -62,16 +67,14 @@ export default function SearchPage() {
             Search Results for: <span className="text-red-500">"{query}"</span>
           </h1>
           <div>
-            <label for="media_type" className="mr-2 text-base md:text-xl">
+            <label htmlFor="media_type" className="mr-2 text-base md:text-xl">
               Search By:
             </label>
             <select
               className="text-white text-base md:text-xl border border-white/20 rounded-md px-2 py-1"
               name="media_type"
               id="media_type"
-              onChange={() =>
-                setMediaType(document.getElementById("media_type").value)
-              }
+              onChange={(e) => setMediaType(e.target.value)}
               value={mediaType}
             >
               <option
@@ -109,13 +112,13 @@ export default function SearchPage() {
               <div
                 className="rounded-lg overflow-hidden hover:scale-105 transition duration-300 ease-in-out"
                 key={item.id}
-                onClick={() => setSelectedMovie(item)}
+                onClick={() => setSelectedMedia(item)}
               >
                 <img
                   src={`https://image.tmdb.org/t/p/w780${
                     item.poster_path || item.backdrop_path
                   }`}
-                  alt={item.title}
+                  alt={item.title || item.name}
                   className="w-full md:h-auto object-cover mb-2"
                 />
                 <h2 className="text-sm md:text-lg">
@@ -139,11 +142,11 @@ export default function SearchPage() {
         )}
       </main>
       <Footer />
-      {selectedMovie && (
+      {selectedMedia && (
         <ModalDetail
-          movie={selectedMovie}
-          onClose={() => setSelectedMovie(null)}
-          media_type={selectedMovie.media_type}
+          mediaItem={selectedMedia}
+          onClose={() => setSelectedMedia(null)}
+          media_type={selectedMedia.media_type}
         />
       )}
     </div>

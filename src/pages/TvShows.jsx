@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import { DataTvShow } from "../constants/DataTvShows";
 import TrendingList from "../components/TrendingList";
-import { BaseApi } from "../api/BaseApi";
 import ModalDetail from "../components/ModalDetail";
 import TvShowListByGenre from "../components/TvShowListByGenre";
+import { useFetchMedia } from "../hooks/useFetchMedia";
 
 export default function TvShows() {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const [trendingTvShow, setTrendingTvShow] = useState([]);
-
-  const getTrendingTvShow = async () => {
-    try {
-      const response = await BaseApi.get("/trending/tv/day?language=en-US");
-      const results = response.data.results;
-      setTrendingTvShow(results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getTrendingTvShow();
-  }, []);
+  const { trendingTvShow } = useFetchMedia("/trending/tv/day?language=en-US");
 
   return (
     <div className="relative bg-slate-900">

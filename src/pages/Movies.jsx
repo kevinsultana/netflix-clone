@@ -1,30 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import { DataMovie } from "../constants/DataMovie";
 import TrendingList from "../components/TrendingList";
-import { BaseApi } from "../api/BaseApi";
 import ModalDetail from "../components/ModalDetail";
 import MovieListByGenre from "../components/MovieListByGenre";
+import { useFetchMedia } from "../hooks/useFetchMedia";
 
 export default function Movies() {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const [trendingMovie, setTrendingMovie] = useState([]);
-
-  const getTrendingMovie = async () => {
-    try {
-      const response = await BaseApi.get("/trending/movie/day?language=en-US");
-      const results = response.data.results;
-      setTrendingMovie(results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getTrendingMovie();
-  }, []);
+  const { data: trendingMovie } = useFetchMedia(
+    "/trending/movie/day?language=en-US"
+  );
 
   return (
     <div className="relative bg-slate-900">

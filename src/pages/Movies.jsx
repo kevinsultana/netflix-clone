@@ -19,7 +19,7 @@ export default function Movies() {
     <div className="relative bg-slate-900">
       <NavBar />
       <Hero data={trendingMovie ? trendingMovie : DataMovie.results} />
-      <div className="relative pt-[17rem] md:pt-[30rem] xl:pt-[40rem] 2xl:pt-[55rem]">
+      <div className="relative pt-[17rem] md:pt-[30rem] xl:pt-[40rem] 2xl:pt-[60rem]">
         <TrendingList
           title="Trending Tv Shows"
           data={trendingMovie ? trendingMovie : DataMovie.results}

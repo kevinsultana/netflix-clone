@@ -80,7 +80,7 @@ export default function NavBar() {
 
         {/* Dropdown Menu mobile */}
         {showMenu && (
-          <div className="absolute top-16 left-1/2 transform -translate-x-1/2 rounded-2xl w-1/2 bg-black/90 text-white md:hidden">
+          <div className="absolute top-16 left-1/2 transform -translate-x-1/2 rounded-2xl w-1/2 bg-black/90 text-white md:hidden transition-all duration-300 ease-out origin-top scale-y-100 opacity-100">
             <ul className="flex flex-col p-4">
               {dataNavBar.map((item) => (
                 <li key={item.id} className="py-2">
@@ -97,31 +97,31 @@ export default function NavBar() {
         )}
       </div>
 
-      <div className="relative transition-all duration-300">
-        {showSearchBar && (
-          <input
-            type="text"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            placeholder="Search..."
-            autoFocus
-            className="w-32 md:w-48 lg:w-60 px-3 py-1 rounded-full bg-white/10 text-white placeholder-gray-300 outline-none border border-white/20 focus:border-white focus:bg-white/20 transition-all duration-300"
-          />
-        )}
+      <div className="relative">
+        <input
+          type="text"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+          placeholder="Search..."
+          autoFocus
+          className={`px-3 py-1 rounded-full bg-white/10 text-white placeholder-gray-300 outline-none border border-white/20 focus:border-white focus:bg-white/20 transition-all duration-300 ${
+            showSearchBar ? "w-32 md:w-48 lg:w-60 opacity-100" : "w-0 opacity-0"
+          }`}
+        />
       </div>
 
       <div className="flex gap-4 md:gap-8 items-center">
         <FaMagnifyingGlass
           onClick={() => setShowSearchBar(!showSearchBar)}
-          className="text-lg md:text-2xl text-white cursor-pointer"
+          className="text-lg md:text-2xl text-white cursor-pointer hover:text-gray-300 transition-colors duration-200"
         />
         <Link to="/my-list">
-          <FaRegHeart className="text-lg md:text-2xl text-white" />
+          <FaRegHeart className="text-lg md:text-2xl text-white hover:text-red-500 transition-colors duration-200" />
         </Link>
-        <button className="flex items-center gap-2">
+        <button className="flex items-center gap-2 group">
           <img src={ava1} alt="avatar" className="w-6 md:w-8" />
-          <FaChevronDown className="text-lg md:text-2xl text-white" />
+          <FaChevronDown className="text-lg md:text-2xl text-white group-hover:rotate-180 transition-transform duration-300" />
         </button>
       </div>
     </div>

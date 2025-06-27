@@ -7,6 +7,7 @@ import { FaHeart, FaStar } from "react-icons/fa6";
 export default function ModalDetail({ movie, onClose, media_type }) {
   const [videoKey, setVideoKey] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   if (!movie) return null;
 
@@ -47,10 +48,13 @@ export default function ModalDetail({ movie, onClose, media_type }) {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      getVideo();
-    }, 1500);
-  }, [id]);
+    if (movie) {
+      setModalOpen(true);
+      setTimeout(() => {
+        getVideo();
+      }, 1500);
+    }
+  }, [id, movie]);
 
   const handleFavorite = () => {
     const saved = JSON.parse(localStorage.getItem("favorite")) || [];
@@ -74,12 +78,27 @@ export default function ModalDetail({ movie, onClose, media_type }) {
     setIsFavorite(exists);
   }, [id]);
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  };
+
   return (
-    <div className="fixed inset-0 z-40 bg-black/80 flex items-center justify-center px-4">
-      <div className="bg-gray-900 text-white rounded-lg w-full md:max-w-3xl overflow-hidden shadow-lg relative p-2 md:p-8">
+    <div
+      className={`fixed inset-0 z-40 bg-black/80 flex items-center justify-center px-4 transition-opacity duration-300 ${
+        modalOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
+      <div
+        className={`bg-gray-900 text-white rounded-lg w-full md:max-w-3xl overflow-hidden shadow-lg relative p-2 md:p-8 transition-all duration-300 ease-out transform ${
+          modalOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
+        }`}
+      >
         <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full text-2xl z-50 cursor-pointer"
+          onClick={handleCloseModal}
+          className="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full text-2xl z-50 cursor-pointer hover:bg-red-600 transition-colors duration-200"
         >
           <FaTimes />
         </button>
@@ -109,7 +128,7 @@ export default function ModalDetail({ movie, onClose, media_type }) {
               onClick={handleFavorite}
               className={`p-2 rounded-full ${
                 isFavorite ? "bg-slate-600" : "bg-slate-400"
-              } transition-colors duration-300`}
+              } transition-colors duration-300 hover:scale-110`}
             >
               <FaHeart
                 className={

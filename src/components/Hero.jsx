@@ -1,24 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logoGlitch from "../assets/logoGlitch.png";
 import { FaPlay } from "react-icons/fa6";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function Hero({ data }) {
   const heroData = data[0];
+  const [contentVisible, setContentVisible] = useState(false);
+
+  useEffect(() => {
+    if (heroData) {
+      const timer = setTimeout(() => {
+        setContentVisible(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    } else {
+      setContentVisible(false);
+    }
+  }, [heroData]);
 
   return (
     <div>
       {/* hero bg */}
-      <div className="absolute w-full h-[400px] md:h-svh ">
+      <div className="absolute w-full h-[400px] md:h-svh overflow-hidden">
         <img
           src={`https://image.tmdb.org/t/p/w780${heroData?.backdrop_path}`}
           alt="Hero"
-          className="w-full h-[260px] max-h-svh md:h-auto absolute z-0"
+          className="w-full h-[260px] max-h-svh md:h-auto absolute z-0 object-cover transition-transform duration-1000 ease-out transform scale-105 hover:scale-100"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60"></div>
       </div>
       {/* hero text title */}
-      <div className="absolute z-10 px-6 max-w-xs md:max-w-2xl sm:px-12 md:px-14 lg:px-16 mt-20 sm:mt-32 lg:mt-76  ">
+      <div
+        className={`absolute z-10 px-6 max-w-xs md:max-w-2xl sm:px-12 md:px-14 lg:px-16 mt-20 sm:mt-32 lg:mt-76 transition-all duration-1000 ease-out ${
+          contentVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4"
+        }`}
+      >
         <div className="flex gap-4 items-center">
           <img
             src={logoGlitch}
@@ -39,11 +57,11 @@ export default function Hero({ data }) {
         </p>
 
         <div className="flex gap-4 pt-2 sm:pt-0">
-          <button className="bg-white text-xs text-black py-1 px-6 md:px-8 flex gap-2 items-center rounded-xl">
+          <button className="bg-white text-xs text-black py-1 px-6 md:px-8 flex gap-2 items-center rounded-xl hover:bg-gray-200 transition-colors duration-300">
             <FaPlay />
             <span className="hidden sm:inline">Play</span>
           </button>
-          <button className="bg-white/20 text-white py-2 px-6 sm:px-8 flex gap-2 items-center rounded-xl">
+          <button className="bg-white/20 text-white py-2 px-6 sm:px-8 flex gap-2 items-center rounded-xl hover:bg-white/30 transition-colors duration-300">
             <IoIosInformationCircleOutline />
             <span className="hidden sm:inline">More Info</span>
           </button>
